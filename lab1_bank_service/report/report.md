@@ -83,32 +83,81 @@ C++ 的标准输出 `std::cout` 不是线程安全的，如果同时有顾客到
 柜员取号叫号，要锁队列+叫号牌。
 结果就导致：顾客取号入队 和 柜员叫号取队列 都要锁住等待队列。所以 顾客取号和柜员叫号不能并发 —— 都会互相阻塞。
 
+针对这个问题，我采取的方法是：对于顾客，取号和加入等待队列这两个操作分离，分别加锁；对于柜员，从队列中取出顾客和叫号这两个操作分离，分别加锁。事实上这也可能会导致一个问题：实际中应该是取号和加入等待队列是同时进行的，一个顾客在机器上取号，及其就会自动将他加入等待队列。而在程序中，可能会出现两个顾客几乎同时取号，但是后取号的那位顾客先拿到了队列锁，先加入了等待队列，这是不太符合实际的，现在的程序无法完全避免这一点。
+
+对于柜员较好的方式，本程序没有采用“全局叫号号码，顾客循环监听叫号号码是否为自己所取号码”的方式，这样每一位等待的顾客都需要轮流获取叫号号码的锁，效率较低。本程序使用了 C++20 中 `std::promise, std::future` 的特性，由于等待队列中存放的是顾客对象的指针，柜员互斥地从队列中取出顾客对象指针，然后调用它提供的 `notify_called()` 接口，直接通过 `called_promise_.set_value(teller_name)` 把自己的姓名发送给顾客，顾客在 `called_future_.get()` 阻塞着。这种“一对一”地通知到对应顾客，类似于清华大学玉树园餐厅的取餐方式：顾客买餐后得到一个叫号器，菜品准备好后工作人员发送到对应叫号器，顾客看到叫号器闪烁后取餐。
+
 TODO：this->served_by_ = called_future_.get();和teller_ready.acquire();顺序是否会导致问题？
 
-banker/
-├── src/                    # 源文件
-│   ├── main.cpp             # 主程序入口
-│   ├── customer.cpp         # 顾客线程逻辑实现
-│   ├── teller.cpp           # 柜员线程逻辑实现
-│   ├── sync.cpp             # 同步辅助类的实现（封装mutex, cond）
-│   └── utils.cpp            # 其他小工具（比如读测试文件）
-├── include/                 # 头文件
-│   ├── customer.h           # 顾客类或函数声明
-│   ├── teller.h             # 柜员类或函数声明
-│   ├── sync.h               # 同步封装类声明
-│   └── utils.h              # 工具函数声明
-├── test/                    # 测试代码
-│   ├── test_basic.cpp        # 简单测试例子
-│   ├── test_concurrent.cpp   # 高并发测试
-│   ├── data/                # 测试用的数据
-│   │   ├── simple_case.txt
-│   │   ├── heavy_load.txt
-│   │   └── edge_case.txt
-├── build/                   # 编译生成的中间文件（.o等）
-├── bin/                     # 最终可执行文件（比如 banker_server）
-├── Makefile                 # 项目的 Makefile
-└── README.md                # 项目说明文档
+std::chrono::steady_clock::time_point start_time_point_;相当于银行开门时间，而柜员通常在银行开始工作之间就准备好了。
+
+
 
 # 实验感想
 
 我在编写程序之前，一直将各种变量、信号量想象成为分属顾客和柜员的，但后来我发现，将这些所有变量想象成为银行里集中处理所有数据的“号码机器”，这样只需要考虑号码机器和顾客之间的通信、号码机器与柜员之间的通信。
+
+```cpp
+#include <thread>
+#include <fstream>
+#include "globals.hpp"
+#include "customer.hpp"
+#include "teller.hpp"
+#include "utils.hpp"
+
+int main() {
+    using namespace globals;
+
+    // （1）读取顾客数据，初始化顾客对象，TODO 初始化队列！！！
+    std::vector<std::shared_ptr<Customer>> customers = load_customers_from_file("data.txt");
+    total_customers = customers.size();  // 设置全局顾客总数
+
+    // （2）初始化屏障（顾客线程 + 主线程）
+    customers_barrier = new std::barrier<>(total_customers + 1);
+
+    // （3）初始化信号量（用最大值兜底）
+    customer_ready = new std::counting_semaphore<1000>(0);
+    teller_ready = new std::counting_semaphore<10>(0);  // 假设最多10个柜员
+
+    // （4）启动柜员线程
+    std::vector<std::unique_ptr<Teller>> tellers;
+    std::vector<std::thread> teller_threads;
+    for (int i = 0; i < TELLER_COUNT; ++i) {
+        auto teller = std::make_unique<Teller>("Teller" + std::to_string(i + 1));
+        teller_threads.emplace_back(&Teller::serve, teller.get());
+        tellers.emplace_back(std::move(teller));
+    }
+
+    // （5）启动顾客线程
+    std::vector<std::thread> customer_threads;
+    for (auto& customer : customers) {
+        customer_threads.emplace_back(&Customer::visit_bank, customer);
+    }
+
+    // （6）记录“银行开门”时间并释放顾客线程
+    global_open_time = std::chrono::steady_clock::now();
+    customers_barrier->arrive_and_wait();  // 同时放行所有顾客
+
+    // （7）等待顾客线程完成
+    for (auto& t : customer_threads) {
+        t.join();
+    }
+
+    // （8）结束所有柜员线程（你可能需要约定结束条件）
+    for (auto& t : teller_threads) {
+        t.join();
+    }
+
+    // （9）输出日志
+    utils::output_customer_thread_info(customers, "customers.txt");
+    utils::output_teller_thread_info(tellers, "tellers.txt");
+
+    // （10）释放资源
+    delete customers_barrier;
+    delete customer_ready;
+    delete teller_ready;
+
+    return 0;
+}
+
+```

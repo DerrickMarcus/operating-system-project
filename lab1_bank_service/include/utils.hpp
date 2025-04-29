@@ -2,11 +2,18 @@
 
 #include <iostream>
 #include <sstream>
+#include <string>
 #include <vector>
+#include <memory>
 #include <mutex>
+
+struct CustomerInfo;
+class Customer;
+class Teller;
 
 namespace utils
 {
+
     // thread-safe std::cout
     inline std::mutex cout_mutex;
 
@@ -22,16 +29,14 @@ namespace utils
     }
 
     // parse customer information from text file
-    struct CustomerInfo
-    {
-        int name;
-        int arrive_time;
-        int service_time;
+    const std::vector<CustomerInfo> parse_customer_info(const std::string &file_path);
 
-        CustomerInfo(int name, int arrive_time, int service_time)
-            : name(name), arrive_time(arrive_time), service_time(service_time) {}
-    };
+    // output customer thread information to text file
+    void output_customer_thread_info(const std::vector<std::shared_ptr<Customer>> &customers,
+                                     const std::string &file_path);
 
-    std::vector<CustomerInfo> parse_customer_info(const std::string &file_path);
+    // output teller thread information to text file
+    void output_teller_thread_info(const std::vector<std::unique_ptr<Teller>> &tellers,
+                                   const std::string &file_path);
 
 } // namespace utils
