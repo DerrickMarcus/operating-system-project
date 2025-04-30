@@ -15,14 +15,16 @@ int main(int argc, const char *argv[])
 
     try
     {
+        // load configuration from json file
+        utils::load_config_from_json(globals::CONFIG_FILE_PATH);
+
         // parse information of customers from text file
-        std::vector<CustomerInfo> customer_info = utils::parse_customer_info(globals::CUSTOMER_INFO_FILE_PATH);
-        utils::safe_print("Parsed customers from file: ", globals::CUSTOMER_INFO_FILE_PATH);
+        std::vector<CustomerInfo> customers_info = utils::parse_customer_info(globals::CUSTOMER_INFO_FILE_PATH);
 
         // initialize global variables
         globals::customer_ready = std::make_unique<std::counting_semaphore<globals::MAX_CUSTOMERS_NUMBER>>(0);
         globals::teller_ready = std::make_unique<std::counting_semaphore<globals::TELLERS_NUMBER>>(globals::TELLERS_NUMBER);
-        globals::customers_number = customer_info.size();
+        globals::customers_number = customers_info.size();
         globals::served_customers_number.store(0);
         globals::getting_number = 1;
         globals::customers_barrier = std::make_unique<std::barrier<>>(globals::customers_number + 1);
@@ -44,7 +46,7 @@ int main(int argc, const char *argv[])
 
         // create and start customers thread
         std::vector<std::shared_ptr<Customer>> customers;
-        for (const auto &info : customer_info)
+        for (const auto &info : customers_info)
         {
             customers.emplace_back(std::make_shared<Customer>(info.name, info.arrive_time, info.service_time));
         }
@@ -54,35 +56,28 @@ int main(int argc, const char *argv[])
         }
         utils::safe_print("All customers are ready.");
 
-        std::this_thread::sleep_for(std::chrono::seconds(5));
-
-        // wait for all customers to arrive
+        // all customers start at the same time
         globals::open_time_point = std::chrono::steady_clock::now();
         globals::customers_barrier->arrive_and_wait();
-        // globals::open_time_point = std::chrono::steady_clock::now();
 
         // wait for all customers to finish
         for (const auto &customer : customers)
         {
             customer->join();
-            utils::safe_print("Customer ", customer->get_name(), " left.");
         }
 
         // wait for all tellers to finish
         for (const auto &teller : tellers)
         {
             teller->join();
-            utils::safe_print("Teller ", teller->get_name(), " off work.");
         }
 
+        utils::safe_print("Total ", globals::served_customers_number.load(),
+                          " / ", globals::customers_number, " customers have been served.");
+
         // output thread information to text file
-        utils::safe_print("Total ", globals::served_customers_number.load(), " customers have been served.");
-
         utils::output_customer_thread_info(customers, globals::CUSTOMER_THREAD_INFO_FILE_PATH);
-        utils::safe_print("Output customer thread log to file: ", globals::CUSTOMER_THREAD_INFO_FILE_PATH);
-
         utils::output_teller_thread_info(tellers, globals::TELLER_THREAD_INFO_FILE_PATH);
-        utils::safe_print("Output teller thread log to file: ", globals::TELLER_THREAD_INFO_FILE_PATH);
 
         return EXIT_SUCCESS;
     }

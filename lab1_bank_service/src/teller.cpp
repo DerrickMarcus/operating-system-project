@@ -52,10 +52,12 @@ void Teller::serve()
     {
         while (globals::served_customers_number.load() < globals::customers_number)
         {
-            utils::safe_print("Teller ", this->name_, " checked served numbers: ",
-                              globals::served_customers_number.load(), " / ", globals::customers_number);
-            // wait for a customer
-            globals::customer_ready->acquire();
+            // wait for a customer in the queue
+            // globals::customer_ready->acquire();
+            if (!globals::customer_ready->try_acquire_for(std::chrono::milliseconds(1)))
+            {
+                continue;
+            }
 
             // get a customer from the queue
             {
@@ -67,27 +69,31 @@ void Teller::serve()
                 }
                 else
                 {
+                    // no customer in the queue, continue to wait
                     continue;
                 }
             }
 
             if (this->serving_for_ == nullptr)
             {
+                // no customer in the queue, continue to wait
                 continue;
             }
 
             // notify the customer that he is being called
             this->serving_for_->notify_called(this->name_);
 
+            // be ready to serve
             globals::teller_ready->release();
 
             // serve the customer
-            utils::safe_print("Teller ", this->name_,
-                              " serving customer ", this->serving_for_->get_name(),
-                              " number ", this->serving_for_->get_number(),
-                              " for ", this->serving_for_->get_service_time(), " ms");
+            utils::safe_print("[Teller ", this->name_,
+                              "] serving [Customer ", this->serving_for_->get_name(),
+                              "], number ", this->serving_for_->get_number(),
+                              ", for ", this->serving_for_->get_service_time(), " ms.");
             std::this_thread::sleep_for(std::chrono::milliseconds(this->serving_for_->get_service_time()));
 
+            // record the service process
             this->service_records_.emplace_back(
                 this->serving_for_->get_name(),
                 this->serving_for_->get_number(),
@@ -97,11 +103,11 @@ void Teller::serve()
                 // here do not use "get_leave_time_point()" because it may not be set yet
             );
 
+            // add a served customer
             globals::served_customers_number.fetch_add(1);
 
-            utils::safe_print("Teller ", this->name_,
-                              " finished serving customer ", this->serving_for_->get_name(), " already served ",
-                              globals::served_customers_number.load(), " / ", globals::customers_number);
+            utils::safe_print("[Teller ", this->name_,
+                              "] finished serving [Customer ", this->serving_for_->get_name(), "].");
 
             this->serving_for_.reset();
         }

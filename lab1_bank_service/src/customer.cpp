@@ -98,8 +98,8 @@ void Customer::arrive()
             std::unique_lock<std::mutex> lock(globals::getting_number_mutex);
             this->number_ = globals::getting_number;
             globals::getting_number++;
-            utils::safe_print("Customer ", this->name_,
-                              " arrived, getting number ", this->number_, ".");
+            utils::safe_print("[Customer ", this->name_,
+                              "] arrived, getting number ", this->number_, ".");
         }
 
         // join the waiting queue
@@ -112,20 +112,20 @@ void Customer::arrive()
         globals::customer_ready->release();
 
         // wait for being called
-        this->served_by_ = called_future_.get();
+        this->served_by_ = this->called_future_.get();
 
         // wait for a teller
         globals::teller_ready->acquire();
 
         // be served and leave
         this->serve_time_point_ = std::chrono::steady_clock::now();
-        utils::safe_print("Customer ", this->name_,
-                          " being served by teller ", this->served_by_,
-                          " for ", this->service_time_, " ms.");
+        utils::safe_print("[Customer ", this->name_,
+                          "] being served by [Teller ", this->served_by_,
+                          "] for ", this->service_time_, " ms.");
         std::this_thread::sleep_for(std::chrono::milliseconds(this->service_time_));
 
         this->leave_time_point_ = std::chrono::steady_clock::now();
-        utils::safe_print("Customer ", this->name_, " finished service.");
+        utils::safe_print("[Customer ", this->name_, "] finished.");
     }
     catch (const std::exception &e)
     {

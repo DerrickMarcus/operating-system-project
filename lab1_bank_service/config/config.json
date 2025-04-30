@@ -1,0 +1,5 @@
+{
+  "CUSTOMER_INFO_FILE_PATH": "../data/example_2.txt",
+  "CUSTOMER_THREAD_INFO_FILE_PATH": "../data/customer_log.txt",
+  "TELLER_THREAD_INFO_FILE_PATH": "../data/teller_log.txt"
+}

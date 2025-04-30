@@ -1,0 +1,505 @@
+Total 100 customers will arrive.
+Total 6 tellers will serve.
+All tellers are ready.
+All customers are ready.
+[Customer 1] arrived, getting number 1.
+[Teller 3] serving [Customer 1], number 1, for 78 ms.
+[Customer 1] being served by [Teller 3] for 78 ms.
+[Customer 2] arrived, getting number 2.
+[Teller 2] serving [Customer 2], number 2, for 73 ms.
+[Customer 2] being served by [Teller 2] for 73 ms.
+[Customer 3] arrived, getting number 3.
+[Teller 6] serving [Customer 3], number 3, for 90 ms.
+[Customer 3] being served by [Teller 6] for 90 ms.
+[Customer 4] arrived, getting number 4.
+[Teller 1] serving [Customer 4], number 4, for 54 ms.
+[Customer 4] being served by [Teller 1] for 54 ms.
+[Customer 5] arrived, getting number 5.
+[Teller 4] serving [Customer 5], number 5, for 71 ms.
+[Customer 5] being served by [Teller 4] for 71 ms.
+[Customer 6] arrived, getting number 6.
+[Teller 5] serving [Customer 6], number 6, for 127 ms.
+[Customer 6] being served by [Teller 5] for 127 ms.
+[Customer 7] arrived, getting number 7.
+[Customer 1] finished.
+[Teller 3] finished serving [Customer 1].
+[Teller 3] serving [Customer 7], number 7, for 113 ms.
+[Customer 7] being served by [Teller 3] for 113 ms.
+[Customer 4] finished.
+[Teller 1] finished serving [Customer 4].
+[Teller 2] finished serving [Customer 2].
+[Customer 2] finished.
+[Customer 8] arrived, getting number 8.
+[Teller 2] serving [Customer 8], number 8, for 137 ms.
+[Customer 8] being served by [Teller 2] for 137 ms.
+[Customer 9] arrived, getting number 9.
+[Teller 1] serving [Customer 9], number 9, for 50 ms.
+[Customer 9] being served by [Teller 1] for 50 ms.
+[Customer 10] arrived, getting number 10.
+[Customer 11] arrived, getting number 11.
+[Teller 6] finished serving [Customer 3].
+[Teller 6] serving [Customer 10], number 10, for 121 ms.
+[Customer 3] finished.
+[Customer 10] being served by [Teller 6] for 121 ms.
+[Customer 5] finished.
+[Teller 4] finished serving [Customer 5].
+[Teller 4] serving [Customer 11], number 11, for 60 ms.
+[Customer 11] being served by [Teller 4] for 60 ms.
+[Customer 12] arrived, getting number 12.
+[Customer 9] finished.
+[Teller 1] finished serving [Customer 9].
+[Teller 1] serving [Customer 12], number 12, for 105 ms.
+[Customer 12] being served by [Teller 1] for 105 ms.
+[Customer 13] arrived, getting number 13.
+[Customer 11] finished.
+[Teller 4] finished serving [Customer 11].
+[Teller 4] serving [Customer 13], number 13, for 69 ms.
+[Customer 13] being served by [Teller 4] for 69 ms.
+[Customer 14] arrived, getting number 14.
+[Teller 5] finished serving [Customer 6].
+[Customer 6] finished.
+[Teller 5] serving [Customer 14], number 14, for 64 ms.
+[Customer 14] being served by [Teller 5] for 64 ms.
+[Teller 3] finished serving [Customer 7].
+[Customer 7] finished.
+[Customer 15] arrived, getting number 15.
+[Teller 3] serving [Customer 15], number 15, for 72 ms.
+[Customer 15] being served by [Teller 3] for 72 ms.
+[Customer 16] arrived, getting number 16.
+[Customer 17] arrived, getting number 17.
+[Customer 18] arrived, getting number 18.
+[Customer 8] finished.
+[Teller 2] finished serving [Customer 8].
+[Teller 2] serving [Customer 16], number 16, for 73 ms.
+[Customer 16] being served by [Teller 2] for 73 ms.
+[Teller 6] finished serving [Customer 10].
+[Customer 10] finished.
+[Customer 17] being served by [Teller 6] for 54 ms.
+[Teller 6] serving [Customer 17], number 17, for 54 ms.
+[Customer 19] arrived, getting number 19.
+[Teller 5] finished serving [Customer 14].
+[Customer 14] finished.
+[Teller 5] serving [Customer 18], number 18, for 131 ms.
+[Customer 18] being served by [Teller 5] for 131 ms.
+[Teller 4] finished serving [Customer 13].
+[Customer 13] finished.
+[Teller 4] serving [Customer 19], number 19, for 110 ms.
+[Customer 19] being served by [Teller 4] for 110 ms.
+[Customer 20] arrived, getting number 20.
+[Teller 1] finished serving [Customer 12].
+[Teller 1] serving [Customer 20], number 20, for 113 ms.
+[Customer 20] being served by [Teller 1] for 113 ms.
+[Customer 12] finished.
+[Customer 21] arrived, getting number 21.
+[Customer 22] arrived, getting number 22.
+[Customer 15] finished.
+[Teller 3] finished serving [Customer 15].
+[Teller 3] serving [Customer 21], number 21, for 136 ms.
+[Customer 21] being served by [Teller 3] for 136 ms.
+[Customer 23] arrived, getting number 23.
+[Customer 24] arrived, getting number 24.
+[Customer 17] finished.
+[Teller 6] finished serving [Customer 17].
+[Teller 6] serving [Customer 22], number 22, for 108 ms.
+[Customer 22] being served by [Teller 6] for 108 ms.
+[Customer 25] arrived, getting number 25.
+[Customer 26] arrived, getting number 26.
+[Customer 16] finished.
+[Teller 2] finished serving [Customer 16].
+[Teller 2] serving [Customer 23], number 23, for 99 ms.
+[Customer 23] being served by [Teller 2] for 99 ms.
+[Customer 27] arrived, getting number 27.
+[Customer 28] arrived, getting number 28.
+[Customer 29] arrived, getting number 29.
+[Customer 30] arrived, getting number 30.
+[Customer 31] arrived, getting number 31.
+[Customer 32] arrived, getting number 32.
+[Customer 33] arrived, getting number 33.
+[Teller 4] finished serving [Customer 19].
+[Customer 19] finished.
+[Customer 24] being served by [Teller 4] for 99 ms.
+[Teller 4] serving [Customer 24], number 24, for 99 ms.
+[Customer 34] arrived, getting number 34.
+[Teller 1] finished serving [Customer 20].
+[Teller 1] serving [Customer 25], number 25, for 97 ms.
+[Customer 25] being served by [Teller 1] for 97 ms.
+[Customer 20] finished.
+[Teller 5] finished serving [Customer 18].
+[Teller 5] serving [Customer 26], number 26, for 81 ms.
+[Customer 26] being served by [Teller 5] for 81 ms.
+[Customer 18] finished.
+[Customer 35] arrived, getting number 35.
+[Teller 6] finished serving [Customer 22].
+[Teller 6] serving [Customer 27], number 27, for 51 ms.
+[Customer 27] being served by [Teller 6] for 51 ms.
+[Customer 22] finished.
+[Customer 36] arrived, getting number 36.
+[Teller 2] finished serving [Customer 23].
+[Teller 2] serving [Customer 28], number 28, for 106 ms.
+[Customer 28] being served by [Teller 2] for 106 ms.
+[Customer 23] finished.
+[Customer 37] arrived, getting number 37.
+[Teller 3] finished serving [Customer 21].
+[Teller 3] serving [Customer 29], number 29, for 85 ms.
+[Customer 29] being served by [Teller 3] for 85 ms.
+[Customer 21] finished.
+[Customer 38] arrived, getting number 38.
+[Customer 39] arrived, getting number 39.
+[Customer 40] arrived, getting number 40.
+[Customer 27] finished.
+[Teller 6] finished serving [Customer 27].
+[Teller 6] serving [Customer 30], number 30, for 82 ms.
+[Customer 30] being served by [Teller 6] for 82 ms.
+[Customer 24] finished.
+[Teller 4] finished serving [Customer 24].
+[Teller 4] serving [Customer 31], number 31, for 133 ms.
+[Customer 31] being served by [Teller 4] for 133 ms.
+[Teller 5] finished serving [Customer 26].
+[Customer 26] finished.
+[Teller 5] serving [Customer 32], number 32, for 87 ms.
+[Customer 32] being served by [Teller 5] for 87 ms.
+[Customer 41] arrived, getting number 41.
+[Customer 42] arrived, getting number 42.
+[Teller 1] finished serving [Customer 25].
+[Teller 1] serving [Customer 33], number 33, for 106 ms.
+[Customer 33] being served by [Teller 1] for 106 ms.
+[Customer 25] finished.
+[Customer 43] arrived, getting number 43.
+[Customer 44] arrived, getting number 44.
+[Customer 29] finished.
+[Teller 3] finished serving [Customer 29].
+[Teller 3] serving [Customer 34], number 34, for 75 ms.
+[Customer 34] being served by [Teller 3] for 75 ms.
+[Teller 2] finished serving [Customer 28].
+[Customer 28] finished.
+[Teller 2] serving [Customer 35], number 35, for 76 ms.
+[Customer 35] being served by [Teller 2] for 76 ms.
+[Customer 45] arrived, getting number 45.
+[Customer 46] arrived, getting number 46.
+[Teller 6] finished serving [Customer 30].
+[Teller 6] serving [Customer 36], number 36, for 143 ms.
+[Customer 36] being served by [Teller 6] for 143 ms.
+[Customer 30] finished.
+[Customer 47] arrived, getting number 47.
+[Customer 32] finished.
+[Teller 5] finished serving [Customer 32].
+[Teller 5] serving [Customer 37], number 37, for 112 ms.
+[Customer 37] being served by [Teller 5] for 112 ms.
+[Teller 3] finished serving [Customer 34].
+[Customer 34] finished.
+[Teller 3] serving [Customer 38], number 38, for 132 ms.
+[Customer 38] being served by [Teller 3] for 132 ms.
+[Teller 1] finished serving [Customer 33].
+[Customer 33] finished.
+[Teller 1] serving [Customer 39], number 39, for 51 ms.
+[Customer 39] being served by [Teller 1] for 51 ms.
+[Customer 35] finished.
+[Teller 2] finished serving [Customer 35].
+[Teller 2] serving [Customer 40], number 40, for 51 ms.
+[Customer 40] being served by [Teller 2] for 51 ms.
+[Teller 4] finished serving [Customer 31].
+[Teller 4] serving [Customer 41], number 41, for 65 ms.
+[Customer 41] being served by [Teller 4] for 65 ms.
+[Customer 31] finished.
+[Customer 48] arrived, getting number 48.
+[Customer 49] arrived, getting number 49.
+[Customer 50] arrived, getting number 50.
+[Customer 51] arrived, getting number 51.
+[Customer 39] finished.
+[Teller 1] finished serving [Customer 39].
+[Teller 1] serving [Customer 42], number 42, for 56 ms.
+[Customer 42] being served by [Teller 1] for 56 ms.
+[Customer 52] arrived, getting number 52.
+[Teller 2] finished serving [Customer 40].
+[Teller 2] serving [Customer 43], number 43, for 96 ms.
+[Customer 40] finished.
+[Customer 43] being served by [Teller 2] for 96 ms.
+[Customer 53] arrived, getting number 53.
+[Customer 54] arrived, getting number 54.
+[Teller 4] finished serving [Customer 41].
+[Teller 4] serving [Customer 44], number 44, for 56 ms.
+[Customer 44] being served by [Teller 4] for 56 ms.
+[Customer 41] finished.
+[Teller 5] finished serving [Customer 37].
+[Teller 5] serving [Customer 45], number 45, for 118 ms.
+[Customer 45] being served by [Teller 5] for 118 ms.
+[Customer 37] finished.
+[Customer 55] arrived, getting number 55.
+[Customer 56] arrived, getting number 56.
+[Teller 6] finished serving [Customer 36].
+[Teller 6] serving [Customer 46], number 46, for 59 ms.
+[Customer 46] being served by [Teller 6] for 59 ms.
+[Customer 36] finished.
+[Teller 1] finished serving [Customer 42].
+[Teller 1] serving [Customer 47], number 47, for 84 ms.
+[Customer 47] being served by [Teller 1] for 84 ms.
+[Customer 42] finished.
+[Customer 57] arrived, getting number 57.
+[Customer 58] arrived, getting number 58.
+[Customer 38] finished.
+[Teller 3] finished serving [Customer 38].
+[Teller 3] serving [Customer 48], number 48, for 135 ms.
+[Customer 48] being served by [Teller 3] for 135 ms.
+[Customer 59] arrived, getting number 59.
+[Customer 60] arrived, getting number 60.
+[Teller 4] finished serving [Customer 44].
+[Customer 44] finished.
+[Teller 4] serving [Customer 49], number 49, for 58 ms.
+[Customer 49] being served by [Teller 4] for 58 ms.
+[Customer 61] arrived, getting number 61.
+[Customer 62] arrived, getting number 62.
+[Customer 63] arrived, getting number 63.
+[Customer 64] arrived, getting number 64.
+[Customer 65] arrived, getting number 65.
+[Customer 66] arrived, getting number 66.
+[Teller 6] finished serving [Customer 46].
+[Teller 6] serving [Customer 50], number 50, for 147 ms.
+[Customer 46] finished.
+[Customer 50] being served by [Teller 6] for 147 ms.
+[Customer 67] arrived, getting number 67.
+[Teller 2] finished serving [Customer 43].
+[Teller 2] serving [Customer 51], number 51, for 113 ms.
+[Customer 51] being served by [Teller 2] for 113 ms.
+[Customer 43] finished.
+[Customer 68] arrived, getting number 68.
+[Customer 47] finished.
+[Teller 1] finished serving [Customer 47].
+[Teller 1] serving [Customer 52], number 52, for 62 ms.
+[Customer 52] being served by [Teller 1] for 62 ms.
+[Customer 69] arrived, getting number 69.
+[Customer 49] finished.
+[Teller 4] finished serving [Customer 49].
+[Teller 4] serving [Customer 53], number 53, for 107 ms.
+[Customer 53] being served by [Teller 4] for 107 ms.
+[Teller 5] finished serving [Customer 45].
+[Teller 5] serving [Customer 54], number 54, for 130 ms.
+[Customer 45] finished.
+[Customer 54] being served by [Teller 5] for 130 ms.
+[Customer 70] arrived, getting number 70.
+[Customer 71] arrived, getting number 71.
+[Customer 72] arrived, getting number 72.
+[Customer 73] arrived, getting number 73.
+[Customer 74] arrived, getting number 74.
+[Customer 75] arrived, getting number 75.
+[Customer 76] arrived, getting number 76.
+[Teller 1] finished serving [Customer 52].
+[Teller 1] serving [Customer 55], number 55, for 89 ms.
+[Customer 55] being served by [Teller 1] for 89 ms.
+[Customer 52] finished.
+[Teller 3] finished serving [Customer 48].
+[Teller 3] serving [Customer 56], number 56, for 139 ms.
+[Customer 56] being served by [Teller 3] for 139 ms.
+[Customer 48] finished.
+[Customer 77] arrived, getting number 77.
+[Customer 78] arrived, getting number 78.
+[Teller 2] finished serving [Customer 51].
+[Customer 51] finished.
+[Teller 2] serving [Customer 57], number 57, for 130 ms.
+[Customer 57] being served by [Teller 2] for 130 ms.
+[Customer 79] arrived, getting number 79.
+[Customer 80] arrived, getting number 80.
+[Customer 81] arrived, getting number 81.
+[Teller 4] finished serving [Customer 53].
+[Teller 4] serving [Customer 58], number 58, for 140 ms.
+[Customer 58] being served by [Teller 4] for 140 ms.
+[Customer 53] finished.
+[Teller 6] finished serving [Customer 50].
+[Teller 6] serving [Customer 59], number 59, for 99 ms.
+[Customer 59] being served by [Teller 6] for 99 ms.
+[Customer 50] finished.
+[Customer 82] arrived, getting number 82.
+[Customer 83] arrived, getting number 83.
+[Customer 84] arrived, getting number 84.
+[Customer 85] arrived, getting number 85.
+[Customer 86] arrived, getting number 86.
+[Customer 87] arrived, getting number 87.
+[Teller 5] finished serving [Customer 54].
+[Teller 5] serving [Customer 60], number 60, for 132 ms.
+[Customer 60] being served by [Teller 5] for 132 ms.
+[Customer 54] finished.
+[Customer 88] arrived, getting number 88.
+[Teller 1] finished serving [Customer 55].
+[Teller 1] serving [Customer 61], number 61, for 98 ms.
+[Customer 61] being served by [Teller 1] for 98 ms.
+[Customer 55] finished.
+[Customer 89] arrived, getting number 89.
+[Customer 90] arrived, getting number 90.
+[Customer 91] arrived, getting number 91.
+[Customer 92] arrived, getting number 92.
+[Customer 93] arrived, getting number 93.
+[Customer 94] arrived, getting number 94.
+[Customer 95] arrived, getting number 95.
+[Customer 96] arrived, getting number 96.
+[Customer 97] arrived, getting number 97.
+[Customer 98] arrived, getting number 98.
+[Teller 3] finished serving [Customer 56].
+[Teller 3] serving [Customer 62], number 62, for 143 ms.
+[Customer 56] finished.
+[Customer 62] being served by [Teller 3] for 143 ms.
+[Teller 2] finished serving [Customer 57].
+[Teller 2] serving [Customer 63], number 63, for 76 ms.
+[Customer 63] being served by [Teller 2] for 76 ms.
+[Customer 57] finished.
+[Teller 6] finished serving [Customer 59].
+[Teller 6] serving [Customer 64], number 64, for 127 ms.
+[Customer 64] being served by [Teller 6] for 127 ms.
+[Customer 59] finished.
+[Customer 99] arrived, getting number 99.
+[Customer 100] arrived, getting number 100.
+[Customer 61] finished.
+[Teller 1] finished serving [Customer 61].
+[Teller 1] serving [Customer 65], number 65, for 88 ms.
+[Customer 65] being served by [Teller 1] for 88 ms.
+[Teller 4] finished serving [Customer 58].
+[Customer 58] finished.
+[Teller 4] serving [Customer 66], number 66, for 64 ms.
+[Customer 66] being served by [Teller 4] for 64 ms.
+[Teller 5] finished serving [Customer 60].
+[Teller 5] serving [Customer 67], number 67, for 117 ms.
+[Customer 60] finished.
+[Customer 67] being served by [Teller 5] for 117 ms.
+[Teller 2] finished serving [Customer 63].
+[Teller 2] serving [Customer 68], number 68, for 114 ms.
+[Customer 68] being served by [Teller 2] for 114 ms.
+[Customer 63] finished.
+[Customer 66] finished.
+[Teller 4] finished serving [Customer 66].
+[Teller 4] serving [Customer 69], number 69, for 119 ms.
+[Customer 69] being served by [Teller 4] for 119 ms.
+[Customer 65] finished.
+[Teller 1] finished serving [Customer 65].
+[Teller 1] serving [Customer 70], number 70, for 112 ms.
+[Customer 70] being served by [Teller 1] for 112 ms.
+[Customer 64] finished.
+[Teller 6] finished serving [Customer 64].
+[Teller 6] serving [Customer 71], number 71, for 141 ms.
+[Customer 71] being served by [Teller 6] for 141 ms.
+[Customer 62] finished.
+[Teller 3] finished serving [Customer 62].
+[Teller 3] serving [Customer 72], number 72, for 86 ms.
+[Customer 72] being served by [Teller 3] for 86 ms.
+[Teller 5] finished serving [Customer 67].
+[Customer 67] finished.
+[Teller 5] serving [Customer 73], number 73, for 64 ms.
+[Customer 73] being served by [Teller 5] for 64 ms.
+[Customer 68] finished.
+[Teller 2] finished serving [Customer 68].
+[Teller 2] serving [Customer 74], number 74, for 118 ms.
+[Customer 74] being served by [Teller 2] for 118 ms.
+[Customer 69] finished.
+[Teller 4] finished serving [Customer 69].
+[Teller 4] serving [Customer 75], number 75, for 83 ms.
+[Customer 75] being served by [Teller 4] for 83 ms.
+[Teller 3] finished serving [Customer 72].
+[Customer 72] finished.
+[Teller 3] serving [Customer 76], number 76, for 112 ms.
+[Customer 76] being served by [Teller 3] for 112 ms.
+[Teller 1] finished serving [Customer 70].
+[Customer 70] finished.
+[Teller 1] serving [Customer 77], number 77, for 83 ms.
+[Customer 77] being served by [Teller 1] for 83 ms.
+[Teller 5] finished serving [Customer 73].
+[Teller 5] serving [Customer 78], number 78, for 83 ms.
+[Customer 73] finished.
+[Customer 78] being served by [Teller 5] for 83 ms.
+[Teller 6] finished serving [Customer 71].
+[Customer 71] finished.
+[Customer 79] being served by [Teller 6] for 105 ms.
+[Teller 6] serving [Customer 79], number 79, for 105 ms.
+[Customer 75] finished.
+[Teller 4] finished serving [Customer 75].
+[Teller 4] serving [Customer 80], number 80, for 123 ms.
+[Customer 80] being served by [Teller 4] for 123 ms.
+[Teller 2] finished serving [Customer 74].
+[Customer 74] finished.
+[Teller 2] serving [Customer 81], number 81, for 62 ms.
+[Customer 81] being served by [Teller 2] for 62 ms.
+[Customer 77] finished.
+[Teller 1] finished serving [Customer 77].
+[Teller 1] serving [Customer 82], number 82, for 94 ms.
+[Customer 82] being served by [Teller 1] for 94 ms.
+[Teller 5] finished serving [Customer 78].
+[Teller 5] serving [Customer 83], number 83, for 71 ms.
+[Customer 78] finished.
+[Customer 83] being served by [Teller 5] for 71 ms.
+[Teller 3] finished serving [Customer 76].
+[Customer 76] finished.
+[Teller 3] serving [Customer 84], number 84, for 104 ms.
+[Customer 84] being served by [Teller 3] for 104 ms.
+[Teller 2] finished serving [Customer 81].
+[Teller 2] serving [Customer 85], number 85, for 77 ms.
+[Customer 81] finished.
+[Customer 85] being served by [Teller 2] for 77 ms.
+[Teller 6] finished serving [Customer 79].
+[Customer 79] finished.
+[Teller 6] serving [Customer 86], number 86, for 81 ms.
+[Customer 86] being served by [Teller 6] for 81 ms.
+[Teller 5] finished serving [Customer 83].
+[Teller 5] serving [Customer 87], number 87, for 93 ms.
+[Customer 87] being served by [Teller 5] for 93 ms.
+[Customer 83] finished.
+[Teller 1] finished serving [Customer 82].
+[Customer 82] finished.
+[Teller 1] serving [Customer 88], number 88, for 133 ms.
+[Customer 88] being served by [Teller 1] for 133 ms.
+[Teller 4] finished serving [Customer 80].
+[Customer 80] finished.
+[Teller 4] serving [Customer 89], number 89, for 63 ms.
+[Customer 89] being served by [Teller 4] for 63 ms.
+[Customer 84] finished.
+[Teller 3] finished serving [Customer 84].
+[Teller 3] serving [Customer 90], number 90, for 101 ms.
+[Customer 90] being served by [Teller 3] for 101 ms.
+[Teller 2] finished serving [Customer 85].
+[Customer 85] finished.
+[Customer 91] being served by [Teller 2] for 97 ms.
+[Teller 2] serving [Customer 91], number 91, for 97 ms.
+[Teller 6] finished serving [Customer 86].
+[Customer 86] finished.
+[Teller 6] serving [Customer 92], number 92, for 147 ms.
+[Customer 92] being served by [Teller 6] for 147 ms.
+[Customer 87] finished.
+[Teller 5] finished serving [Customer 87].
+[Teller 5] serving [Customer 93], number 93, for 147 ms.
+[Customer 93] being served by [Teller 5] for 147 ms.
+[Customer 89] finished.
+[Teller 4] finished serving [Customer 89].
+[Teller 4] serving [Customer 94], number 94, for 145 ms.
+[Customer 94] being served by [Teller 4] for 145 ms.
+[Customer 91] finished.
+[Teller 2] finished serving [Customer 91].
+[Teller 2] serving [Customer 95], number 95, for 62 ms.
+[Customer 95] being served by [Teller 2] for 62 ms.
+[Teller 3] finished serving [Customer 90].
+[Customer 90] finished.
+[Teller 3] serving [Customer 96], number 96, for 108 ms.
+[Customer 96] being served by [Teller 3] for 108 ms.
+[Teller 1] finished serving [Customer 88].
+[Teller 1] serving [Customer 97], number 97, for 51 ms.
+[Customer 88] finished.
+[Customer 97] being served by [Teller 1] for 51 ms.
+[Customer 97] finished.
+[Teller 1] finished serving [Customer 97].
+[Teller 1] serving [Customer 98], number 98, for 117 ms.
+[Customer 98] being served by [Teller 1] for 117 ms.
+[Customer 92] finished.
+[Teller 6] finished serving [Customer 92].
+[Teller 6] serving [Customer 99], number 99, for 71 ms.
+[Customer 99] being served by [Teller 6] for 71 ms.
+[Teller 2] finished serving [Customer 95].
+[Teller 2] serving [Customer 100], number 100, for 70 ms.
+[Customer 95] finished.
+[Customer 100] being served by [Teller 2] for 70 ms.
+[Teller 5] finished serving [Customer 93].
+[Customer 93] finished.
+[Teller 4] finished serving [Customer 94].
+[Customer 94] finished.
+[Teller 3] finished serving [Customer 96].
+[Customer 96] finished.
+[Teller 6] finished serving [Customer 99].
+[Customer 99] finished.
+[Teller 2] finished serving [Customer 100].
+[Customer 100] finished.
+[Teller 1] finished serving [Customer 98].
+[Customer 98] finished.
+Total 100 / 100 customers have been served.

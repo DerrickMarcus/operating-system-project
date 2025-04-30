@@ -28,6 +28,9 @@ namespace utils
         std::cout << oss.str() << std::endl;
     }
 
+    // load configuration from json file
+    void load_config_from_json(const std::string &json_path);
+
     // parse customer information from text file
     const std::vector<CustomerInfo> parse_customer_info(const std::string &file_path);
 
