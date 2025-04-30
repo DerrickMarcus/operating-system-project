@@ -52,6 +52,8 @@ void Teller::serve()
     {
         while (globals::served_customers_number.load() < globals::customers_number)
         {
+            utils::safe_print("Teller ", this->name_, " checked served numbers: ",
+                              globals::served_customers_number.load(), " / ", globals::customers_number);
             // wait for a customer
             globals::customer_ready->acquire();
 
@@ -81,7 +83,7 @@ void Teller::serve()
 
             // serve the customer
             utils::safe_print("Teller ", this->name_,
-                              " is serving customer ", this->serving_for_->get_name(),
+                              " serving customer ", this->serving_for_->get_name(),
                               " number ", this->serving_for_->get_number(),
                               " for ", this->serving_for_->get_service_time(), " ms");
             std::this_thread::sleep_for(std::chrono::milliseconds(this->serving_for_->get_service_time()));
@@ -95,13 +97,17 @@ void Teller::serve()
                 // here do not use "get_leave_time_point()" because it may not be set yet
             );
 
-            this->serving_for_.reset();
-
             globals::served_customers_number.fetch_add(1);
+
+            utils::safe_print("Teller ", this->name_,
+                              " finished serving customer ", this->serving_for_->get_name(), " already served ",
+                              globals::served_customers_number.load(), " / ", globals::customers_number);
+
+            this->serving_for_.reset();
         }
     }
     catch (const std::exception &e)
     {
-        utils::safe_print("Teller ", this->name_, " caught exception: ", e.what());
+        utils::safe_print("[ERROR] Teller ", this->name_, " thread caught exception: ", e.what());
     }
 }

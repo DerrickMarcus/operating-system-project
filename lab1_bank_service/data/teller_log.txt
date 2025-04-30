@@ -1,0 +1,6 @@
+customer  number    begin at  end at    serve time
+teller 1 :
+1         1         1         11        10        
+2         2         11        13        2         
+3         3         13        16        3         
+

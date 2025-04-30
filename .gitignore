@@ -33,3 +33,7 @@
 
 # Customization files
 settings.json
+
+# Ignore build directory
+build/
+bin/

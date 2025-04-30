@@ -40,9 +40,9 @@ namespace utils
             throw std::runtime_error("Failed to open: " + file_path + ", please check the file path.\n");
         }
 
-        int width = 10;
+        int width = 12;
 
-        file << std::left << std::setw(width) << "name"
+        file << std::left << std::setw(width) << "customer"
              << std::setw(width) << "number"
              << std::setw(width) << "arrive at"
              << std::setw(width) << "serve at"
