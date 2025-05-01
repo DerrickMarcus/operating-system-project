@@ -5,10 +5,10 @@
 #include <barrier>
 #include <chrono>
 #include <stdexcept>
-#include "globals.hpp"
-#include "customer.hpp"
-#include "teller.hpp"
-#include "utils.hpp"
+#include "../include/globals.hpp"
+#include "../include/customer.hpp"
+#include "../include/teller.hpp"
+#include "../include/utils.hpp"
 
 int main(int argc, const char *argv[])
 {

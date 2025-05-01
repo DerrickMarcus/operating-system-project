@@ -5,11 +5,11 @@
 #include <memory>
 #include <chrono>
 #include <stdexcept>
-#include "utils.hpp"
-#include "customer.hpp"
-#include "teller.hpp"
-#include "globals.hpp"
-#include "json.hpp"
+#include "../include/utils.hpp"
+#include "../include/customer.hpp"
+#include "../include/teller.hpp"
+#include "../include/globals.hpp"
+#include "../include/json.hpp"
 
 namespace utils
 {

@@ -8,10 +8,10 @@
 #include <future>
 #include <chrono>
 #include <stdexcept>
-#include "teller.hpp"
-#include "customer.hpp"
-#include "globals.hpp"
-#include "utils.hpp"
+#include "../include/teller.hpp"
+#include "../include/customer.hpp"
+#include "../include/globals.hpp"
+#include "../include/utils.hpp"
 
 ServiceRecord::ServiceRecord(int customer_name, int customer_number,
                              std::chrono::steady_clock::time_point open_time,

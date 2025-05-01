@@ -7,9 +7,9 @@
 #include <future>
 #include <chrono>
 #include <stdexcept>
-#include "customer.hpp"
-#include "globals.hpp"
-#include "utils.hpp"
+#include "../include/customer.hpp"
+#include "../include/globals.hpp"
+#include "../include/utils.hpp"
 
 CustomerInfo::CustomerInfo(int name, int arrive_time, int service_time)
     : name(name), arrive_time(arrive_time), service_time(service_time) {}

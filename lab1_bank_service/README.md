@@ -25,8 +25,7 @@ cd lab1_bank_service
 chmod +x ./run.sh
 ./run.bash
 # or:
-chomd +x ./scripts/run.py
-./scripts/run.py
+python ./scripts/run.py
 ```
 
 ## How to Modify Parameters
