@@ -25,8 +25,8 @@ class Teller
 {
 public:
     Teller(int name);
-    void start(); // start the teller thread
-    void join();  // wait for the teller thread to finish
+    void start(); // Start the teller thread.
+    void join();  // Wait for the teller thread to finish.
 
     int get_name() const;
     const std::vector<ServiceRecord> &get_service_records() const;

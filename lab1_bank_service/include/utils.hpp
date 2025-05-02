@@ -28,17 +28,17 @@ namespace utils
         std::cout << oss.str() << std::endl;
     }
 
-    // load configuration from json file
+    // Load configuration of file path from the JSON file.
     void load_config_from_json(const std::string &json_path);
 
-    // parse customer information from text file
+    // Parse the information of customers from text file.
     const std::vector<CustomerInfo> parse_customer_info(const std::string &file_path);
 
-    // output customer thread information to text file
+    // Output the information of customer thread to text file.
     void output_customer_thread_info(const std::string &file_path,
                                      const std::vector<std::shared_ptr<Customer>> &customer);
 
-    // output teller thread information to text file
+    // Output the information of teller thread to text file.
     void output_teller_thread_info(const std::string &file_path,
                                    const std::vector<std::unique_ptr<Teller>> &tellers);
 

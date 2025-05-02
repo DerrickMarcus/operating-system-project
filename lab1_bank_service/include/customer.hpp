@@ -4,7 +4,7 @@
 #include <future>
 #include <chrono>
 
-// simple customer information structure
+// a simple customer information structure
 struct CustomerInfo
 {
     int name;
@@ -18,8 +18,8 @@ class Customer : public std::enable_shared_from_this<Customer>
 {
 public:
     Customer(int name, int arrive_time, int service_time);
-    void start(); // start the customer thread
-    void join();  // wait for the customer thread to finish
+    void start(); // Start the customer thread.
+    void join();  // Wait for the customer thread to finish.
 
     int get_name() const;
     int get_arrive_time() const;
@@ -31,7 +31,7 @@ public:
     const std::chrono::steady_clock::time_point &get_serve_time_point() const;
     const std::chrono::steady_clock::time_point &get_leave_time_point() const;
 
-    // notify the customer that he is being called by a teller
+    // Notify the customer that he is being called by a teller.
     void notify_called(int teller_name);
 
 private:

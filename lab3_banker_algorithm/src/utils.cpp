@@ -12,6 +12,7 @@
 
 namespace utils
 {
+
     bool load_data_from_json(const std::string &path,
                              std::vector<int> &total,
                              std::vector<std::vector<int>> &allocation,
@@ -124,4 +125,5 @@ namespace utils
         oss << "]";
         return oss.str();
     }
-}
+
+} // namespace utils

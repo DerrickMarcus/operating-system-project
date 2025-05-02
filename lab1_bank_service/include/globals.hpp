@@ -14,7 +14,7 @@ class Customer;
 namespace globals
 {
 
-    // the number of customers is determined by the data file, but the template
+    // The number of customers is determined by the data file, but the template
     // parameter of std::counting_semaphore must be determined at compile time,
     // so we have to set a large number parameter for customer_ready.
     inline constexpr int MAX_CUSTOMERS_NUMBER = 1000; // can be changed manually
@@ -23,7 +23,7 @@ namespace globals
     inline std::unique_ptr<std::counting_semaphore<MAX_CUSTOMERS_NUMBER>> customer_ready;
     inline std::unique_ptr<std::counting_semaphore<TELLERS_NUMBER>> teller_ready;
 
-    inline int customers_number = 0; // determined after the main thread read data file
+    inline int customers_number = 0; // determined after the main thread reads data file
     inline std::atomic<int> served_customers_number{0};
 
     inline int getting_number = 1;

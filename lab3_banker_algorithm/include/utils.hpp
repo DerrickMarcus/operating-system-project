@@ -7,6 +7,7 @@ struct Request;
 
 namespace utils
 {
+
     bool load_data_from_json(const std::string &path,
                              std::vector<int> &total,
                              std::vector<std::vector<int>> &allocation,
@@ -16,4 +17,5 @@ namespace utils
     std::string format_vector(const std::vector<int> &vec);
 
     std::string format_matrix(const std::vector<std::vector<int>> &mat);
-};
+
+} // namespace utils

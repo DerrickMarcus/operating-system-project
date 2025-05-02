@@ -115,7 +115,7 @@ std::vector<int> Banker::is_system_safe() const
 
                 if (can_finish)
                 {
-                    // simulate releasing resource
+                    // Simulate releasing resource.
                     for (size_t j = 0; j < _num_resources; j++)
                     {
                         work[j] += _allocation[i][j];
@@ -147,7 +147,7 @@ bool Banker::process_request(int pid, const std::vector<int> &request)
         return false;
     }
 
-    // try to allocate resources
+    // Try to allocate resources.
     for (size_t i = 0; i < this->_num_resources; i++)
     {
         this->_allocation[pid][i] += request[i];

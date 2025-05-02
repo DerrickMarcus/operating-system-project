@@ -11,13 +11,13 @@ def load_json(json_path):
 
 
 def main():
-    # set input and output file paths
+    # Set input and output file paths.
     BASE_DIR = Path(__file__).resolve().parent
     DATA_DIR = BASE_DIR.parent.parent / "data"
     JSON_FILE = DATA_DIR / "example_1.json"
     LOG_FILE = DATA_DIR / "output.log"
 
-    # configure logging format
+    # Configure the logging format.
     logging.basicConfig(
         level=logging.INFO,
         # format="[%(asctime)s] %(message)s",
@@ -32,7 +32,7 @@ def main():
     data = load_json(JSON_FILE)
 
     banker = Banker(data["total"], data["allocation"], data["max_demand"])
-    banker.print_state()  # print initial state
+    banker.print_state()  # Print the initial state.
 
     for req in data.get("requests", []):
         pid = req["pid"]

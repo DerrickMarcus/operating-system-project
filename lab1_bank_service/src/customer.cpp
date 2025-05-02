@@ -85,15 +85,15 @@ void Customer::_arrive()
 {
     try
     {
-        // wait for all customers be prepared
+        // Wait for all customers be prepared.
         globals::customers_barrier->arrive_and_wait();
         this->_start_time_point = globals::open_time_point;
 
-        // sleep until arrival
+        // Sleep until arrival.
         std::this_thread::sleep_for(std::chrono::milliseconds(this->_arrive_time));
         this->_arrive_time_point = std::chrono::steady_clock::now();
 
-        // arrive and get a number
+        // Arrive and get a number.
         {
             std::unique_lock<std::mutex> lock(globals::getting_number_mutex);
             this->_number = globals::getting_number;
@@ -102,22 +102,22 @@ void Customer::_arrive()
                               "] arrived, getting number ", this->_number, ".");
         }
 
-        // join the waiting queue
+        // Join the waiting queue.
         {
             std::unique_lock<std::mutex> lock(globals::waiting_queue_mutex);
             globals::waiting_queue.emplace(shared_from_this());
         }
 
-        // notify that a customer is ready
+        // Notify the tellers that a customer is ready.
         globals::customer_ready->release();
 
-        // wait for being called
+        // Wait for being called.
         this->_served_by = this->_called_future.get();
 
-        // wait for a teller
+        // Wait for a free teller.
         globals::teller_ready->acquire();
 
-        // be served and leave
+        // Be served and leave.
         this->_serve_time_point = std::chrono::steady_clock::now();
         utils::safe_print("[Customer ", this->_name,
                           "] being served by [Teller ", this->_served_by,

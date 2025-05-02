@@ -52,14 +52,13 @@ void Teller::_serve()
     {
         while (globals::served_customers_number.load() < globals::customers_number)
         {
-            // wait for a customer in the queue
-            // globals::customer_ready->acquire();
+            // Wait for a customer in the waiting queue.
             if (!globals::customer_ready->try_acquire_for(std::chrono::milliseconds(1)))
             {
                 continue;
             }
 
-            // get a customer from the queue
+            // Get a customer from the waiting queue.
             {
                 std::unique_lock<std::mutex> lock(globals::waiting_queue_mutex);
                 if (!globals::waiting_queue.empty())
@@ -69,41 +68,41 @@ void Teller::_serve()
                 }
                 else
                 {
-                    // no customer in the queue, continue to wait
+                    // If no customer in the queue, continue to wait.
                     continue;
                 }
             }
 
             if (this->_serving_for == nullptr)
             {
-                // no customer in the queue, continue to wait
+                // If no customer in the queue, continue to wait.
                 continue;
             }
 
-            // notify the customer that he is being called
+            // Notify the customer that he is being called.
             this->_serving_for->notify_called(this->_name);
 
-            // be ready to serve
+            // Be ready to serve.
             globals::teller_ready->release();
 
-            // serve the customer
+            // Serve the customer.
             utils::safe_print("[Teller ", this->_name,
                               "] serving [Customer ", this->_serving_for->get_name(),
                               "], number ", this->_serving_for->get_number(),
                               ", for ", this->_serving_for->get_service_time(), " ms.");
             std::this_thread::sleep_for(std::chrono::milliseconds(this->_serving_for->get_service_time()));
 
-            // record the service process
+            // Add a record of the service process
             this->_service_records.emplace_back(
                 this->_serving_for->get_name(),
                 this->_serving_for->get_number(),
                 this->_serving_for->get_start_time_point(),
                 this->_serving_for->get_serve_time_point(),
                 std::chrono::steady_clock::now()
-                // here do not use "get_leave_time_point()" because it may not be set yet
+                // Here do not use "get_leave_time_point()" because it may not be set yet.
             );
 
-            // add a served customer
+            // Add a served customer.
             globals::served_customers_number.fetch_add(1);
 
             utils::safe_print("[Teller ", this->_name,
