@@ -14,11 +14,12 @@ class Banker:
         self.available = self.total - np.sum(self.allocation, axis=0)
 
     def print_state(self):
-        logging.info("Currnet state of the system:")
-        logging.info(f"Total resources: {self.total}")
-        logging.info(f"Allocated resources:\n{self.allocation}")
+        logging.info("Current state of the system resources:")
+        logging.info(f"Total: {self.total}")
+        logging.info(f"Allocated:\n{self.allocation}")
         logging.info(f"Maximum demand:\n{self.max_demand}")
-        logging.info(f"Available resources: {self.available}")
+        logging.info(f"Need:\n{self.need}")
+        logging.info(f"Available: {self.available}")
         logging.info("-" * 60)
 
     def is_request_valid(self, pid: int, request: list) -> bool:
@@ -111,7 +112,7 @@ class Banker:
             self.available += request
             self.allocation[pid] -= request
             self.need[pid] += request
-            logging.info("Request denied. Rollback to the previous state.")
+            logging.info("Request denied. Back to the previous state.")
             return False
 
     def release_resources(self, pid: int, release: list) -> bool:
@@ -139,5 +140,5 @@ class Banker:
             self.allocation[pid] -= release
             self.need[pid] += release
             self.available += release
-            logging.info(f"Process {pid} released resources: {release}")
+            logging.info(f"Process {pid} has released resources: {release}")
             return True

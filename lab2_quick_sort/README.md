@@ -1,1 +1,1 @@
-# Lab2 Quick Sort
+# Lab2: Quick Sort

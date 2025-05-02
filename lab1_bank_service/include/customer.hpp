@@ -35,21 +35,21 @@ public:
     void notify_called(int teller_name);
 
 private:
-    void arrive();
+    void _arrive();
 
-    int name_;
-    int arrive_time_;
-    int service_time_;
+    int _name;
+    int _arrive_time;
+    int _service_time;
 
-    int number_;    // getting number
-    int served_by_; // served by which teller
-    std::thread thread_;
+    int _number;    // getting number
+    int _served_by; // served by which teller
+    std::thread _thread;
 
-    std::chrono::steady_clock::time_point start_time_point_;
-    std::chrono::steady_clock::time_point arrive_time_point_;
-    std::chrono::steady_clock::time_point serve_time_point_;
-    std::chrono::steady_clock::time_point leave_time_point_;
+    std::chrono::steady_clock::time_point _start_time_point;
+    std::chrono::steady_clock::time_point _arrive_time_point;
+    std::chrono::steady_clock::time_point _serve_time_point;
+    std::chrono::steady_clock::time_point _leave_time_point;
 
-    std::promise<int> called_promise_;
-    std::future<int> called_future_;
+    std::promise<int> _called_promise;
+    std::future<int> _called_future;
 };

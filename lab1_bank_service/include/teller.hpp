@@ -32,10 +32,10 @@ public:
     const std::vector<ServiceRecord> &get_service_records() const;
 
 private:
-    void serve();
-    int name_;
-    std::thread thread_;
+    void _serve();
+    int _name;
+    std::thread _thread;
 
-    std::shared_ptr<Customer> serving_for_;
-    std::vector<ServiceRecord> service_records_;
+    std::shared_ptr<Customer> _serving_for;
+    std::vector<ServiceRecord> _service_records;
 };

@@ -15,91 +15,91 @@ CustomerInfo::CustomerInfo(int name, int arrive_time, int service_time)
     : name(name), arrive_time(arrive_time), service_time(service_time) {}
 
 Customer::Customer(int name, int arrive_time, int service_time)
-    : name_(name), arrive_time_(arrive_time), service_time_(service_time),
-      number_(-1), served_by_(-1), called_future_(called_promise_.get_future()) {}
+    : _name(name), _arrive_time(arrive_time), _service_time(service_time),
+      _number(-1), _served_by(-1), _called_future(_called_promise.get_future()) {}
 
 void Customer::start()
 {
-    this->thread_ = std::thread(&Customer::arrive, this);
+    this->_thread = std::thread(&Customer::_arrive, this);
 }
 
 void Customer::join()
 {
-    if (this->thread_.joinable())
+    if (this->_thread.joinable())
     {
-        this->thread_.join();
+        this->_thread.join();
     }
 }
 
 int Customer::get_name() const
 {
-    return this->name_;
+    return this->_name;
 }
 
 int Customer::get_arrive_time() const
 {
-    return this->arrive_time_;
+    return this->_arrive_time;
 }
 
 int Customer::get_service_time() const
 {
-    return this->service_time_;
+    return this->_service_time;
 }
 
 int Customer::get_number() const
 {
-    return this->number_;
+    return this->_number;
 }
 
 int Customer::get_served_by() const
 {
-    return this->served_by_;
+    return this->_served_by;
 }
 
 const std::chrono::steady_clock::time_point &Customer::get_start_time_point() const
 {
-    return this->start_time_point_;
+    return this->_start_time_point;
 }
 
 const std::chrono::steady_clock::time_point &Customer::get_arrive_time_point() const
 {
-    return this->arrive_time_point_;
+    return this->_arrive_time_point;
 }
 
 const std::chrono::steady_clock::time_point &Customer::get_serve_time_point() const
 {
-    return this->serve_time_point_;
+    return this->_serve_time_point;
 }
 
 const std::chrono::steady_clock::time_point &Customer::get_leave_time_point() const
 {
-    return this->leave_time_point_;
+    return this->_leave_time_point;
 }
 
 void Customer::notify_called(int teller_name)
 {
-    this->called_promise_.set_value(teller_name);
+    this->_called_promise.set_value(teller_name);
 }
 
-void Customer::arrive()
+void Customer::_arrive()
 {
     try
     {
         // wait for all customers be prepared
         globals::customers_barrier->arrive_and_wait();
-        this->start_time_point_ = globals::open_time_point;
+        this->_start_time_point = globals::open_time_point;
 
         // sleep until arrival
-        std::this_thread::sleep_for(std::chrono::milliseconds(this->arrive_time_));
-        this->arrive_time_point_ = std::chrono::steady_clock::now();
+        std::this_thread::sleep_for(std::chrono::milliseconds(this->_arrive_time));
+        this->_arrive_time_point = std::chrono::steady_clock::now();
 
         // arrive and get a number
         {
             std::unique_lock<std::mutex> lock(globals::getting_number_mutex);
-            this->number_ = globals::getting_number;
+            this->_number = globals::getting_number;
             globals::getting_number++;
-            utils::safe_print("[Customer ", this->name_,
-                              "] arrived, getting number ", this->number_, ".");
+            utils::safe_print("[Customer ", this->_name,
+                              "] arrived, getting number ", this->_number, ".");
         }
 
         // join the waiting queue
@@ -112,23 +112,23 @@ void Customer::arrive()
         globals::customer_ready->release();
 
         // wait for being called
-        this->served_by_ = this->called_future_.get();
+        this->_served_by = this->_called_future.get();
 
         // wait for a teller
         globals::teller_ready->acquire();
 
         // be served and leave
-        this->serve_time_point_ = std::chrono::steady_clock::now();
-        utils::safe_print("[Customer ", this->name_,
-                          "] being served by [Teller ", this->served_by_,
-                          "] for ", this->service_time_, " ms.");
-        std::this_thread::sleep_for(std::chrono::milliseconds(this->service_time_));
+        this->_serve_time_point = std::chrono::steady_clock::now();
+        utils::safe_print("[Customer ", this->_name,
+                          "] being served by [Teller ", this->_served_by,
+                          "] for ", this->_service_time, " ms.");
+        std::this_thread::sleep_for(std::chrono::milliseconds(this->_service_time));
 
-        this->leave_time_point_ = std::chrono::steady_clock::now();
-        utils::safe_print("[Customer ", this->name_, "] finished.");
+        this->_leave_time_point = std::chrono::steady_clock::now();
+        utils::safe_print("[Customer ", this->_name, "] finished.");
     }
     catch (const std::exception &e)
     {
-        utils::safe_print("[ERROR] Customer ", this->name_, " thread caught exception: ", e.what());
+        utils::safe_print("[ERROR] Customer ", this->_name, " thread caught exception: ", e.what());
     }
 }

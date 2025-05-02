@@ -37,9 +37,9 @@ namespace globals
     inline std::chrono::steady_clock::time_point open_time_point;
 
     // can be changed manually
-    inline const std::string CONFIG_FILE_PATH = "../config/config.json";
-    inline std::string CUSTOMER_INFO_FILE_PATH = "../data/customer_info.txt";
-    inline std::string CUSTOMER_THREAD_INFO_FILE_PATH = "../data/customer_log.txt";
-    inline std::string TELLER_THREAD_INFO_FILE_PATH = "../data/teller_log.txt";
+    inline const std::string CONFIG_PATH = "../config/config.json";
+    inline std::string CUSTOMER_INFO_PATH = "../data/customer_info.txt";
+    inline std::string CUSTOMER_THREAD_INFO_PATH = "../data/customer_log.txt";
+    inline std::string TELLER_THREAD_INFO_PATH = "../data/teller_log.txt";
 
 } // namespace globals

@@ -14,159 +14,221 @@
 
 > OS: Ubuntu 24.04.2 LTS x86_64.
 >
-> Language: Python 3.12.3
+> Language: C++.
 
 流程图：
 
+我们设计一个银行家类 `Banker` ，实现对系统资源的管理和调度功能。主要成员变量：
+
+1. `total`：资源总数。
+2. `allocation`：分配矩阵，表示每个进程已经分配的资源数。
+3. `max_demand`：最大需求矩阵，表示每个进程对资源的最大需求。
+4. `available`：可用资源，表示当前系统中可用的资源数。
+5. `need`：需求矩阵，表示每个进程还需要的资源数。
+6. `num_processes`：进程个数。
+7. `num_resources`：资源种类数。
+
+主要的方法有：
+
+1. `print_state`：输出当前系统状态，包括资源总数、分配矩阵等5个重要指标。
+2. `is_request_valid`：判断请求是否合法，包括检查进程号是否存在、请求资源是否超过最大需求、请求资源是否超过可用资源。
+3. `is_system_safe`：判断系统是否处于安全状态，使用安全性算法检查当前资源分配是否会导致死锁，并返回一个安全序列。如果系统处于不安全状态，则返回空序列。
+4. `process_request`：处理一次进程的资源分配请求。
+
+主进程中，首先初始化系统资源，从 JSON 文件中读取存储的信息，创建银行家 `Banker` 对象，得到资源总数 `total` 、分配矩阵 `allocation` 、最大需求矩阵 `max_demand` ，由此可以计算出资源种类数、进程个数、可用资源 `available` 和需求矩阵 `need` 。
+
+对于系统运行过程中每一个进程的每一个请求，首先判断请求是否合法。若合法，则尝试进行资源分配，更新 `allocation, available, need` 矩阵，并判断系统是否处于安全状态。若处于安全状态，则允许分配；否则，拒绝此次请求，回复刚刚分配的资源，系统回滚到请求前的状态。
+
 ## 文件结构说明
+
+```text
+.
+├── bin
+│   └── banker_algorithm
+├── build_and_run.sh
+├── CMakeLists.txt
+├── data
+│   ├── cpp.log
+│   ├── example_1.json
+│   ├── example_2.json
+│   ├── example_3.json
+│   └── output.log
+├── include
+│   ├── banker.hpp
+│   ├── json.hpp
+│   └── utils.hpp
+├── README.md
+├── report
+│   └── report.md
+├── run.sh
+└── src
+    ├── banker.cpp
+    ├── main.cpp
+    ├── python
+    │   ├── banker.py
+    │   └── main.py
+    └── utils.cpp
+```
 
 ## 样例测试
 
+设计三个不同的测试样例，包括资源分配成功和失败的情况，其中都一个样例的输出结果如下：
+
+```log
+Loaded data from ../data/example_1.json successfully.
+------------------------------------------------------------
+Currnet state of the system resources:
+Total: [10  8  7  9]
+Allocated:
+[[1 0 1 2]
+ [2 1 0 1]
+ [1 2 2 1]
+ [0 1 1 2]]
+Max demand:
+[[5 4 3 5]
+ [3 2 2 3]
+ [7 5 4 6]
+ [4 3 3 4]]
+Need:
+[[4 4 2 3]
+ [1 1 2 2]
+ [6 3 2 5]
+ [4 2 2 2]]
+Available: [6 4 3 3]
+------------------------------------------------------------
+Process 1 is requesting resources: [1 0 1 1]
+Request is safe. Safe sequence:[1 3 0 2]
+Request accepted. Allocation successful.
+------------------------------------------------------------
+Currnet state of the system resources:
+Total: [10  8  7  9]
+Allocated:
+[[1 0 1 2]
+ [3 1 1 2]
+ [1 2 2 1]
+ [0 1 1 2]]
+Max demand:
+[[5 4 3 5]
+ [3 2 2 3]
+ [7 5 4 6]
+ [4 3 3 4]]
+Need:
+[[4 4 2 3]
+ [0 1 1 1]
+ [6 3 2 5]
+ [4 2 2 2]]
+Available: [5 4 2 2]
+------------------------------------------------------------
+Process 0 is requesting resources: [5 0 0 0]
+Process 0 is requesting more than its maximum demand:
+Request: [5 0 0 0]
+Need:    [4 4 2 3]
+Invalid request. Allocation rejected.
+------------------------------------------------------------
+Currnet state of the system resources:
+Total: [10  8  7  9]
+Allocated:
+[[1 0 1 2]
+ [3 1 1 2]
+ [1 2 2 1]
+ [0 1 1 2]]
+Max demand:
+[[5 4 3 5]
+ [3 2 2 3]
+ [7 5 4 6]
+ [4 3 3 4]]
+Need:
+[[4 4 2 3]
+ [0 1 1 1]
+ [6 3 2 5]
+ [4 2 2 2]]
+Available: [5 4 2 2]
+------------------------------------------------------------
+Process 2 is requesting resources: [1 1 1 3]
+Process 2 is requesting more than available resources:
+Request:   [1 1 1 3]
+Available: [5 4 2 2]
+Invalid request. Allocation rejected.
+------------------------------------------------------------
+Currnet state of the system resources:
+Total: [10  8  7  9]
+Allocated:
+[[1 0 1 2]
+ [3 1 1 2]
+ [1 2 2 1]
+ [0 1 1 2]]
+Max demand:
+[[5 4 3 5]
+ [3 2 2 3]
+ [7 5 4 6]
+ [4 3 3 4]]
+Need:
+[[4 4 2 3]
+ [0 1 1 1]
+ [6 3 2 5]
+ [4 2 2 2]]
+Available: [5 4 2 2]
+------------------------------------------------------------
+Process 3 is requesting resources: [1 0 1 0]
+Request is safe. Safe sequence:[1 3 0 2]
+Request accepted. Allocation successful.
+------------------------------------------------------------
+Currnet state of the system resources:
+Total: [10  8  7  9]
+Allocated:
+[[1 0 1 2]
+ [3 1 1 2]
+ [1 2 2 1]
+ [1 1 2 2]]
+Max demand:
+[[5 4 3 5]
+ [3 2 2 3]
+ [7 5 4 6]
+ [4 3 3 4]]
+Need:
+[[4 4 2 3]
+ [0 1 1 1]
+ [6 3 2 5]
+ [3 2 1 2]]
+Available: [4 4 1 2]
+------------------------------------------------------------
+Process 0 is requesting resources: [1 0 1 0]
+Request would lead to an unsafe state.
+Request denied. Back to the previous state.
+------------------------------------------------------------
+Currnet state of the system resources:
+Total: [10  8  7  9]
+Allocated:
+[[1 0 1 2]
+ [3 1 1 2]
+ [1 2 2 1]
+ [1 1 2 2]]
+Max demand:
+[[5 4 3 5]
+ [3 2 2 3]
+ [7 5 4 6]
+ [4 3 3 4]]
+Need:
+[[4 4 2 3]
+ [0 1 1 1]
+ [6 3 2 5]
+ [3 2 1 2]]
+Available: [4 4 1 2]
+------------------------------------------------------------
+```
+
+这组测试样例中：
+
+1. 第1次请求成功，分配资源后系统处于安全状态，安全序列为 `[1 3 0 2]` 。
+2. 第2次请求失败，不合法，进程0请求的资源超过了其最大需求。
+3. 第3次请求失败，不合法，进程2请求的资源超过了可用资源。
+4. 第4次请求成功，分配资源后系统处于安全状态，安全序列为 `[1 3 0 2]` 。
+5. 第5次请求失败，因为系统处于不安全状态。
+
 ## 思考题
 
+（1）银行家算法在实现过程中需注意资源分配的哪些事项才能避免死锁？
+
+答：
+
 ## 实验感想
-
-# include "banker.hpp"
-
-# include <iostream>
-
-# include <iomanip>
-
-Banker::Banker(
-    const std::vector<int>& total,
-    const std::vector<std::vector<int>>& allocation,
-    const std::vector<std::vector<int>>& max_demand,
-    const std::vector<std::pair<int, std::vector<int>>>& requests
-)
-    : total(total),
-      allocation(allocation),
-      max_demand(max_demand),
-      requests(requests),
-      num_processes(allocation.size()),
-      num_resources(total.size())
-{
-    calculate_need();
-    calculate_available();
-}
-
-void Banker::calculate_need() {
-    need.resize(num_processes, std::vector<int>(num_resources));
-    for (int i = 0; i < num_processes; ++i) {
-        for (int j = 0; j < num_resources; ++j) {
-            need[i][j] = max_demand[i][j] - allocation[i][j];
-        }
-    }
-}
-
-void Banker::calculate_available() {
-    available = total;
-    for (const auto& alloc : allocation) {
-        for (int j = 0; j < num_resources; ++j) {
-            available[j] -= alloc[j];
-        }
-    }
-}
-
-bool Banker::is_request_valid(int pid, const std::vector<int>& request) const {
-    if (pid < 0 || pid >= num_processes) {
-        std::cerr << "Invalid process ID: " << pid << '\n';
-        return false;
-    }
-
-    for (int j = 0; j < num_resources; ++j) {
-        if (request[j] > need[pid][j]) {
-            std::cerr << "Request exceeds process " << pid << "'s need.\n";
-            return false;
-        }
-        if (request[j] > available[j]) {
-            std::cerr << "Request exceeds available resources.\n";
-            return false;
-        }
-    }
-    return true;
-}
-
-bool Banker::is_safe_state() const {
-    std::vector<int> work = available;
-    std::vector<bool> finish(num_processes, false);
-    int finished = 0;
-
-    while (finished < num_processes) {
-        bool found = false;
-        for (int i = 0; i < num_processes; ++i) {
-            if (!finish[i]) {
-                bool can_finish = true;
-                for (int j = 0; j < num_resources; ++j) {
-                    if (need[i][j] > work[j]) {
-                        can_finish = false;
-                        break;
-                    }
-                }
-                if (can_finish) {
-                    for (int j = 0; j < num_resources; ++j) {
-                        work[j] += allocation[i][j];
-                    }
-                    finish[i] = true;
-                    found = true;
-                    ++finished;
-                }
-            }
-        }
-        if (!found) return false;
-    }
-    return true;
-}
-
-void Banker::process_all_requests() {
-    for (const auto& [pid, request] : requests) {
-        std::cout << "\n>>> Processing request from process " << pid << ": ";
-        print_vector(request);
-        if (!is_request_valid(pid, request)) {
-            std::cout << "Request denied (invalid).\n";
-            continue;
-        }
-
-        // Tentatively allocate
-        for (int j = 0; j < num_resources; ++j) {
-            available[j] -= request[j];
-            allocation[pid][j] += request[j];
-            need[pid][j] -= request[j];
-        }
-
-        if (is_safe_state()) {
-            std::cout << "Request granted (system is in safe state).\n";
-        } else {
-            // Rollback
-            for (int j = 0; j < num_resources; ++j) {
-                available[j] += request[j];
-                allocation[pid][j] -= request[j];
-                need[pid][j] += request[j];
-            }
-            std::cout << "Request denied (would lead to unsafe state).\n";
-        }
-
-        print_state();
-    }
-}
-
-void Banker::print_state() const {
-    std::cout << "\n=== Current System State ===\n";
-    std::cout << "Total:       "; print_vector(total);
-    std::cout << "Available:   "; print_vector(available);
-    std::cout << "\nAllocation:\n"; print_matrix(allocation);
-    std::cout << "\nMax Demand:\n"; print_matrix(max_demand);
-    std::cout << "\nNeed:\n"; print_matrix(need);
-}
-
-void Banker::print_vector(const std::vector<int>& vec) const {
-    for (int val : vec) {
-        std::cout << std::setw(3) << val << " ";
-    }
-    std::cout << '\n';
-}
-
-void Banker::print_matrix(const std::vector<std::vector<int>>& mat) const {
-    for (const auto& row : mat) {
-        print_vector(row);
-    }
-}

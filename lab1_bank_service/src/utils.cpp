@@ -19,29 +19,29 @@ namespace utils
         std::ifstream config_file(json_path);
         if (!config_file.is_open())
         {
-            utils::safe_print("[WARNING] Failed to open: " + json_path + ". Using default values instead.");
-            utils::safe_print("[WARNING] CUSTOMER_INFO_FILE_PATH: ", globals::CUSTOMER_INFO_FILE_PATH);
-            utils::safe_print("[WARNING] CUSTOMER_THREAD_INFO_FILE_PATH: ", globals::CUSTOMER_THREAD_INFO_FILE_PATH);
-            utils::safe_print("[WARNING] TELLER_THREAD_INFO_FILE_PATH: ", globals::TELLER_THREAD_INFO_FILE_PATH);
+            utils::safe_print("[WARNING] Failed to open: ", json_path, ". Using default values instead.");
+            utils::safe_print("[WARNING] CUSTOMER_INFO_FILE_PATH: ", globals::CUSTOMER_INFO_PATH);
+            utils::safe_print("[WARNING] CUSTOMER_THREAD_INFO_FILE_PATH: ", globals::CUSTOMER_THREAD_INFO_PATH);
+            utils::safe_print("[WARNING] TELLER_THREAD_INFO_FILE_PATH: ", globals::TELLER_THREAD_INFO_PATH);
             return;
         }
 
         nlohmann::json j;
         config_file >> j;
 
-        if (j.contains("CUSTOMER_INFO_FILE_PATH") && j["CUSTOMER_INFO_FILE_PATH"].is_string())
+        if (j.contains("CUSTOMER_INFO_FILE_PATH") && j.at("CUSTOMER_INFO_FILE_PATH").is_string())
         {
-            globals::CUSTOMER_INFO_FILE_PATH = j["CUSTOMER_INFO_FILE_PATH"];
+            globals::CUSTOMER_INFO_PATH = j.at("CUSTOMER_INFO_FILE_PATH");
         }
 
-        if (j.contains("CUSTOMER_THREAD_INFO_FILE_PATH") && j["CUSTOMER_THREAD_INFO_FILE_PATH"].is_string())
+        if (j.contains("CUSTOMER_THREAD_INFO_FILE_PATH") && j.at("CUSTOMER_THREAD_INFO_FILE_PATH").is_string())
         {
-            globals::CUSTOMER_THREAD_INFO_FILE_PATH = j["CUSTOMER_THREAD_INFO_FILE_PATH"];
+            globals::CUSTOMER_THREAD_INFO_PATH = j.at("CUSTOMER_THREAD_INFO_FILE_PATH");
         }
 
-        if (j.contains("TELLER_THREAD_INFO_FILE_PATH") && j["TELLER_THREAD_INFO_FILE_PATH"].is_string())
+        if (j.contains("TELLER_THREAD_INFO_FILE_PATH") && j.at("TELLER_THREAD_INFO_FILE_PATH").is_string())
         {
-            globals::TELLER_THREAD_INFO_FILE_PATH = j["TELLER_THREAD_INFO_FILE_PATH"];
+            globals::TELLER_THREAD_INFO_PATH = j.at("TELLER_THREAD_INFO_FILE_PATH");
         }
 
         utils::safe_print("Loaded configurations from file: ", json_path);
@@ -68,8 +68,8 @@ namespace utils
         return customers;
     }
 
-    void output_customer_thread_info(const std::vector<std::shared_ptr<Customer>> &customers,
-                                     const std::string &file_path)
+    void output_customer_thread_info(const std::string &file_path,
+                                     const std::vector<std::shared_ptr<Customer>> &customers)
     {
         std::ofstream file(file_path);
         if (!file.is_open())
@@ -117,8 +117,8 @@ namespace utils
         utils::safe_print("Output customers thread log to file: ", file_path);
     }
 
-    void output_teller_thread_info(const std::vector<std::unique_ptr<Teller>> &tellers,
-                                   const std::string &file_path)
+    void output_teller_thread_info(const std::string &file_path,
+                                   const std::vector<std::unique_ptr<Teller>> &tellers)
     {
         std::ofstream file(file_path);
         if (!file.is_open())

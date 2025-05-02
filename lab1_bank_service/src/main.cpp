@@ -16,10 +16,10 @@ int main(int argc, const char *argv[])
     try
     {
         // load configuration from json file
-        utils::load_config_from_json(globals::CONFIG_FILE_PATH);
+        utils::load_config_from_json(globals::CONFIG_PATH);
 
         // parse information of customers from text file
-        std::vector<CustomerInfo> customers_info = utils::parse_customer_info(globals::CUSTOMER_INFO_FILE_PATH);
+        std::vector<CustomerInfo> customers_info = utils::parse_customer_info(globals::CUSTOMER_INFO_PATH);
 
         // initialize global variables
         globals::customer_ready = std::make_unique<std::counting_semaphore<globals::MAX_CUSTOMERS_NUMBER>>(0);
@@ -76,8 +76,8 @@ int main(int argc, const char *argv[])
                           " / ", globals::customers_number, " customers have been served.");
 
         // output thread information to text file
-        utils::output_customer_thread_info(customers, globals::CUSTOMER_THREAD_INFO_FILE_PATH);
-        utils::output_teller_thread_info(tellers, globals::TELLER_THREAD_INFO_FILE_PATH);
+        utils::output_customer_thread_info(globals::CUSTOMER_THREAD_INFO_PATH, customers);
+        utils::output_teller_thread_info(globals::TELLER_THREAD_INFO_PATH, tellers);
 
         return EXIT_SUCCESS;
     }

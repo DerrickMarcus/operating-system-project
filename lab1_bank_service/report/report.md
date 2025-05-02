@@ -152,6 +152,9 @@ while (globals::served_customers_number.load() < globals::customers_number)
 
 ```text
 .
+├── bin
+│   └── bank_service          # 可执行程序
+├── build_and_run.sh          # 编译源代码、运行可执行文件的脚本文件
 ├── CMakeLists.txt            # CMake 构建文件，包含编译和链接的配置
 ├── config
 │   └── config.json           # 有关读写文件路径的配置文件
@@ -170,7 +173,7 @@ while (globals::served_customers_number.load() < globals::customers_number)
 ├── README.md                 # 项目运行说明
 ├── report
 │   └── report.md             # 实验报告
-├── run.sh                    # 编译运行脚本
+├── run.sh                    # 运行可执行程序的脚本文件
 ├── scripts
 │   ├── generate_data.py      # 生成随机测试样例的脚本
 │   └── run.py                # 编译运行脚本，作用与 run.sh 相同
@@ -211,7 +214,7 @@ while (globals::served_customers_number.load() < globals::customers_number)
 
 设置2位柜员，运行时输出信息为：
 
-```text
+```log
 Total 3 customers will arrive.
 Total 2 tellers will serve.
 All tellers are ready.
@@ -236,7 +239,7 @@ Total 3 / 3 customers have been served.
 
 顾客线程运行日志：
 
-```text
+```log
 customer  number  arrive at  serve at  leave at  wait time  serve time  teller
 ------------------------------------------------------------------------------
 1         1       1          1         11        0          10          1
@@ -246,7 +249,7 @@ customer  number  arrive at  serve at  leave at  wait time  serve time  teller
 
 柜员线程运行日志：
 
-```text
+```log
 customer  number  begin at  end at  serve time
 ----------------------------------------------
 teller 1

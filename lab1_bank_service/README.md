@@ -1,4 +1,4 @@
-# Lab1 Bank Service
+# Lab1: Bank Service
 
 ## How to Run the Program
 
@@ -14,7 +14,8 @@ cd build
 cmake ..
 make # or: cmake --build .
 
-./bin/bank_service
+cd ../bin
+./bank_service
 ```
 
 Alternatively, you can also run the program simply using the provided scripts:
@@ -24,8 +25,9 @@ cd lab1_bank_service
 
 chmod +x ./run.sh
 ./run.bash
+
 # or:
-python ./scripts/run.py
+python3 ./scripts/run.py
 ```
 
 ## How to Modify Parameters
@@ -42,13 +44,13 @@ inline constexpr int TELLERS_NUMBER = 10;         // the number of tellers
 
 After making any changes, run the command `./run.bash` again to recompile and generate a new executable file at `./bin/bank_service`.
 
-If you want to change the **data or log file paths**, such as `CUSTOMER_INFO_FILE_PATH`, you do not need to recompile the program. These paths are defined in the configuration file `./config/config.json`, and the program will automatically load them when running. Here is the default configurations:
+If you want to change the **data or log file paths**, such as `CUSTOMER_INFO_PATH`, you do not need to recompile the program. These paths are defined in the configuration file `./config/config.json`, and the program will automatically load them when running. Here is the default configurations:
 
 ```json
 {
-  "CUSTOMER_INFO_FILE_PATH": "../data/example_1.txt",
-  "CUSTOMER_THREAD_INFO_FILE_PATH": "../data/customer_log.txt",
-  "TELLER_THREAD_INFO_FILE_PATH": "../data/teller_log.txt"
+  "CUSTOMER_INFO_PATH": "../data/example_1.txt",
+  "CUSTOMER_THREAD_INFO_PATH": "../data/customer_log.txt",
+  "TELLER_THREAD_INFO_PATH": "../data/teller_log.txt"
 }
 ```
 
@@ -60,8 +62,7 @@ You can generate example customer data for testing by running the `./scripts/gen
 
 ```bash
 cd lab1_bank_service/scripts
-chmod +x generate_data.py
-./generate_data.py
+python3 generate_data.py
 ```
 
 You can customize the number of customers (`customers_num`), the output file path, and the range of random integers used in the data generation process.

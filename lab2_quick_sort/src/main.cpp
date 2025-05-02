@@ -1,4 +1,4 @@
-#include "shared_memory.hpp"
+#include "../include/shared_memory.hpp"
 
 int main(int argc, char *argv[])
 {

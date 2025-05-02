@@ -20,15 +20,15 @@ def main():
     # configure logging format
     logging.basicConfig(
         level=logging.INFO,
-        format="[%(asctime)s] %(message)s",
-        # format="%(message)s",
+        # format="[%(asctime)s] %(message)s",
+        format="%(message)s",
         handlers=[
             logging.FileHandler(LOG_FILE, mode="w", encoding="utf-8"),
             logging.StreamHandler(),
         ],
     )
 
-    logging.info(f"Read data from file {JSON_FILE}")
+    logging.info(f"Read data from file {JSON_FILE}.")
     data = load_json(JSON_FILE)
 
     banker = Banker(data["total"], data["allocation"], data["max_demand"])

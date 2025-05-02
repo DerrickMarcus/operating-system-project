@@ -35,11 +35,11 @@ namespace utils
     const std::vector<CustomerInfo> parse_customer_info(const std::string &file_path);
 
     // output customer thread information to text file
-    void output_customer_thread_info(const std::vector<std::shared_ptr<Customer>> &customers,
-                                     const std::string &file_path);
+    void output_customer_thread_info(const std::string &file_path,
+                                     const std::vector<std::shared_ptr<Customer>> &customer);
 
     // output teller thread information to text file
-    void output_teller_thread_info(const std::vector<std::unique_ptr<Teller>> &tellers,
-                                   const std::string &file_path);
+    void output_teller_thread_info(const std::string &file_path,
+                                   const std::vector<std::unique_ptr<Teller>> &tellers);
 
 } // namespace utils

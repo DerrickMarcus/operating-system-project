@@ -1,7 +1,14 @@
 #pragma once
 
 #include <vector>
-#include <string>
+
+struct Request
+{
+    int pid;
+    std::vector<int> request;
+
+    Request(int pid, const std::vector<int> &req);
+};
 
 class Banker
 {
@@ -14,7 +21,7 @@ public:
 
     bool is_request_valid(int pid, const std::vector<int> &request) const;
 
-    bool is_system_safe() const;
+    std::vector<int> is_system_safe() const;
 
     bool process_request(int pid, const std::vector<int> &request);
 
@@ -27,15 +34,15 @@ public:
     const std::vector<std::vector<int>> &get_need() const;
 
 private:
-    std::vector<int> total;
-    std::vector<int> available;
+    std::vector<int> _total;
+    std::vector<int> _available;
 
-    std::vector<std::vector<int>> allocation;
-    std::vector<std::vector<int>> max_demand;
-    std::vector<std::vector<int>> need;
+    std::vector<std::vector<int>> _allocation;
+    std::vector<std::vector<int>> _max_demand;
+    std::vector<std::vector<int>> _need;
 
-    int num_processes;
-    int num_resources;
+    int _num_processes;
+    int _num_resources;
 
     void calculate_need();
     void calculate_available();
