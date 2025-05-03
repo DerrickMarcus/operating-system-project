@@ -5,6 +5,7 @@
 #include <memory>
 #include <chrono>
 #include <stdexcept>
+
 #include "../include/utils.hpp"
 #include "../include/customer.hpp"
 #include "../include/teller.hpp"

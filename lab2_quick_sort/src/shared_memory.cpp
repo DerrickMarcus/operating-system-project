@@ -25,8 +25,6 @@ void SharedMemory::init_mutex()
     pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_ERRORCHECK);
 
     pthread_mutex_init(&this->_shm_ptr->meta.meta_mutex, &attr);
-    pthread_mutex_init(&this->_shm_ptr->meta.data_mutex, &attr);
-
     pthread_mutexattr_destroy(&attr);
 }
 
@@ -130,26 +128,6 @@ SharedMemory::~SharedMemory()
             }
             usleep(10000); // 10ms
         }
-
-        while (true)
-        {
-            int r = pthread_mutex_trylock(&this->_shm_ptr->meta.data_mutex);
-            if (r == 0)
-            {
-                pthread_mutex_unlock(&this->_shm_ptr->meta.data_mutex);
-                if (pthread_mutex_destroy(&this->_shm_ptr->meta.data_mutex) != 0)
-                {
-                    std::cerr << "Failed to destroy data_mutex: " << std::strerror(errno) << std::endl;
-                }
-                break;
-            }
-            if (r != EBUSY)
-            {
-                std::cerr << "data_mutex trylock error: " << std::strerror(r) << std::endl;
-                break;
-            }
-            usleep(10000);
-        }
     }
 
     if (munmap(this->_shm_ptr, this->_shm_size) != 0)
@@ -212,16 +190,6 @@ void SharedMemory::lock_meta()
 void SharedMemory::unlock_meta()
 {
     pthread_mutex_unlock(&this->_shm_ptr->meta.meta_mutex);
-}
-
-void SharedMemory::lock_data()
-{
-    pthread_mutex_lock(&this->_shm_ptr->meta.data_mutex);
-}
-
-void SharedMemory::unlock_data()
-{
-    pthread_mutex_unlock(&this->_shm_ptr->meta.data_mutex);
 }
 
 void SharedMemory::set_is_sorted(bool is_sorted)

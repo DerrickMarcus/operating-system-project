@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <vector>
 #include <stdexcept>
+
 #include "../include/utils.hpp"
 #include "../include/banker.hpp"
 #include "../include/json.hpp"

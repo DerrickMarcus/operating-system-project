@@ -13,7 +13,6 @@ struct SharedData
         size_t data_size;           // the number of elements
         bool is_sorted;             // whether the data is sorted
         pthread_mutex_t meta_mutex; // mutex for the meta data
-        pthread_mutex_t data_mutex; // mutex for the data
     } meta;
 
     // Variable-length array. The size is determined by the total size.
@@ -44,9 +43,6 @@ public:
 
     void lock_meta();
     void unlock_meta();
-
-    void lock_data();
-    void unlock_data();
 
     void set_is_sorted(bool is_sorted);
     bool get_is_sorted() const;
