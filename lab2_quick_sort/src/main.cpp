@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <cstring>
+#include <chrono>
 
 #include "../include/shared_memory.hpp"
 #include "../include/sorter.hpp"
@@ -54,7 +55,12 @@ int main(int argc, char *argv[])
 
     // Sort the data in the shared memory.
     Sorter sorter(shm_name, data_size, false, max_procs_num, threshold);
+
+    auto t_1 = std::chrono::high_resolution_clock::now();
     sorter.sort_all();
+    auto t_2 = std::chrono::high_resolution_clock::now();
+    auto dur_1 = std::chrono::duration_cast<std::chrono::milliseconds>(t_2 - t_1).count();
+    std::cout << "Sorting time: " << dur_1 << " ms." << std::endl;
 
     if (!sorter.verify_sorted())
     {
@@ -62,9 +68,6 @@ int main(int argc, char *argv[])
         return 1;
     }
     std::cout << "The data is sorted correctly." << std::endl;
-
-    // Unlink the shared memory, otherwise it will still exist in the system.
-    shm.remove();
 
     // Write the sorted data to the output file.
     std::ofstream fout(OUTPUT_PATH);
@@ -79,6 +82,18 @@ int main(int argc, char *argv[])
     }
     fout.close();
     std::cout << "The sorted data is written to: " << OUTPUT_PATH << std::endl;
+
+    // Compare the sorting time with using std::sort.
+    int comp_arr[data_size];
+    std::copy(buffer.begin(), buffer.end(), comp_arr);
+    auto t_3 = std::chrono::high_resolution_clock::now();
+    std::sort(comp_arr, comp_arr + data_size);
+    auto t_4 = std::chrono::high_resolution_clock::now();
+    auto dur_2 = std::chrono::duration_cast<std::chrono::milliseconds>(t_4 - t_3).count();
+    std::cout << "std::sort time: " << dur_2 << " ms." << std::endl;
+
+    std::cout << "The sorting time of the shared memory is "
+              << (double)dur_1 / dur_2 * 100 << "% of using std::sort." << std::endl;
 
     return 0;
 }

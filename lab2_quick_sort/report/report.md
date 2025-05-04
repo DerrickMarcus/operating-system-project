@@ -82,6 +82,18 @@
 
 使用 Python 文件生成随机数保存至文本文件后，程序读取文件数据并排序，最后将排序结果写入 `data/sorted_integers.txt` 文件中。可见排序算法正确执行，排序后的数据有序。
 
+```text
+Reading data from: ../data/integers.txt
+The number of integers: 1000000
+Sorting time: 53 ms.
+The data is sorted correctly.
+The sorted data is written to: ../data/sorted_integers.txt
+std::sort time: 89 ms.
+The sorting time of the shared memory is 59.5506% of using std::sort.
+```
+
+可见使用共享内存方法排序，性能较好，比 C++ 标准库提供的 `std::sort` 排序还要快 40% 左右。
+
 ## 思考题
 
 （1）你采用了你选择的机制而不是另外的两种机制解决该问题，请解释你做出这种选择的理由。

@@ -95,7 +95,7 @@ SharedMemory::~SharedMemory()
         return;
     }
 
-    if (_is_owner)
+    if (this->_is_owner)
     {
         while (true)
         {
@@ -129,6 +129,8 @@ SharedMemory::~SharedMemory()
         std::cerr << "Failed to close file descriptor: " << std::strerror(errno) << std::endl;
     }
     this->_shm_fd = -1;
+
+    this->remove();
 }
 
 void SharedMemory::remove()
