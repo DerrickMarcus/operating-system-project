@@ -16,3 +16,16 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 file(GLOB SOURCES
     "${PROJECT_SOURCE_DIR}/src/*.cpp"
 )
+
+# set the output directory for the compiled binary
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
+
+# define the executable target
+add_executable(${PROJECT_NAME} ${SOURCES})
+
+# optional: install the executable
+# install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
+
+# optional: enable testing
+# enable_testing()
+# add_subdirectory(tests)

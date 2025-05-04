@@ -6,7 +6,7 @@ This is the project of course Operating System, 2025 spring, from the Department
 
 Directory: `./lab1_bank_service/`
 
-OS: Ubuntu 24.04.2 LTS x86_64.
+OS: Ubuntu 24.04.2 LTS x86_64
 
 Language: C++ (-std=C++20)
 
@@ -16,9 +16,9 @@ Description: This project simulates a bank service system with multiple customer
 
 Directory: `./lab2_quick_sort/`
 
-OS: Ubuntu 24.04.2 LTS x86_64.
+OS: Ubuntu 24.04.2 LTS x86_64
 
-Language: C++ (-std=C++20)
+Language: C++
 
 Description: This project implements the quick sort algorithm using shared memory and multiple processes for parallel sorting.
 
@@ -26,7 +26,7 @@ Description: This project implements the quick sort algorithm using shared memor
 
 Directory: `./lab3_banker_algorithm/`
 
-OS: Ubuntu 24.04.2 LTS x86_64.
+OS: Ubuntu 24.04.2 LTS x86_64
 
 Language: C++, Python 3.12.3
 

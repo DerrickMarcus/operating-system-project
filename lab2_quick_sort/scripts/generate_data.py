@@ -1,11 +1,10 @@
+import random
 from pathlib import Path
-
-import numpy as np
 
 
 def generate_random_integers(file_path, count, max_value=10_000_000):
-    """Generate random integers and save them to a binary file.
-    The integers are in the range of [0, max_value] and of type int32.
+    """Generate random integers and save them to a text file.
+    The integers are generated in the range [0, max_value].
 
     Args:
         file_path (pathlib.Path): The path to the file where the random integers will be saved.
@@ -14,14 +13,15 @@ def generate_random_integers(file_path, count, max_value=10_000_000):
     """
     file_path.parent.mkdir(parents=True, exist_ok=True)
 
-    data = np.random.randint(0, max_value + 1, size=count, dtype=np.int32)
-    data.tofile(file_path)
+    with file_path.open("w") as f:
+        for _ in range(count):
+            f.write(f"{random.randint(0, max_value)}\n")
     print(f"Generated {count} random integers in {file_path}.")
 
 
 if __name__ == "__main__":
     script_dir = Path(__file__).resolve().parent
-    output_path = script_dir / "../data/integers.bin"
+    output_path = script_dir / "../data/integers.txt"
     count = 1_000_000
     max_value = 10_000_000
 

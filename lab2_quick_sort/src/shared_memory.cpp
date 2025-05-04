@@ -45,23 +45,23 @@ SharedMemory::SharedMemory(const std::string &shm_name,
 {
     // Create or open the shared memory.
     int shm_flag_ = create ? (O_CREAT | O_EXCL | O_RDWR) : O_RDWR;
-    this->_shm_fd = shm_open(shm_name.c_str(), shm_flag_, 0666);
+    this->_shm_fd = ::shm_open(shm_name.c_str(), shm_flag_, 0666);
     if (this->_shm_fd < 0)
     {
         throw std::runtime_error("Failed to shm_open: " + std::string(strerror(errno)));
     }
 
     // Set the size of the shared memory.
-    if (create && ftruncate(this->_shm_fd, this->_shm_size) < 0)
+    if (create && ::ftruncate(this->_shm_fd, this->_shm_size) < 0)
     {
-        shm_unlink(shm_name.c_str());
+        ::shm_unlink(shm_name.c_str());
         ::close(this->_shm_fd);
         throw std::runtime_error("Failed to ftruncate: " + std::string(strerror(errno)));
     }
 
     // Map the shared memory to the process's address space.
-    void *addr_ = mmap(nullptr, this->_shm_size, PROT_READ | PROT_WRITE,
-                       MAP_SHARED, this->_shm_fd, 0);
+    void *addr_ = ::mmap(nullptr, this->_shm_size, PROT_READ | PROT_WRITE,
+                         MAP_SHARED, this->_shm_fd, 0);
     if (addr_ == MAP_FAILED)
     {
         ::close(this->_shm_fd);
@@ -80,7 +80,7 @@ SharedMemory::SharedMemory(const std::string &shm_name,
     }
     else if (this->_shm_ptr->meta.data_size != data_size)
     {
-        munmap(this->_shm_ptr, _shm_size);
+        ::munmap(this->_shm_ptr, _shm_size);
         ::close(this->_shm_fd);
         throw std::runtime_error("Shared memory size mismatch.");
     }
@@ -94,18 +94,6 @@ SharedMemory::~SharedMemory()
     {
         return;
     }
-
-    // if (this->_is_owner)
-    // {
-    //     if (pthread_mutex_destroy(&this->_shm_ptr->meta.meta_mutex) != 0)
-    //     {
-    //         std::cerr << "Failed to destroy meta_mutex: " << std::strerror(errno) << std::endl;
-    //     }
-    //     if (pthread_mutex_destroy(&this->_shm_ptr->meta.data_mutex) != 0)
-    //     {
-    //         std::cerr << "Failed to destroy data_mutex: " << std::strerror(errno) << std::endl;
-    //     }
-    // }
 
     if (_is_owner)
     {
@@ -130,7 +118,7 @@ SharedMemory::~SharedMemory()
         }
     }
 
-    if (munmap(this->_shm_ptr, this->_shm_size) != 0)
+    if (::munmap(this->_shm_ptr, this->_shm_size) != 0)
     {
         std::cerr << "Failed to munmap:" << std::strerror(errno) << std::endl;
     }
@@ -150,7 +138,7 @@ void SharedMemory::remove()
         return;
     }
 
-    if (shm_unlink(this->_shm_name.c_str()) != 0)
+    if (::shm_unlink(this->_shm_name.c_str()) != 0)
     {
         std::cerr << "Failed to shm_unlink: " << this->_shm_name << std::strerror(errno) << std::endl;
     }

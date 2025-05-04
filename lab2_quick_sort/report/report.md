@@ -36,9 +36,9 @@
 
 选择“共享内存”机制实现，基于 Linux 中的 POSIX 机制，建立命名的共享内存，通过一个唯一的名称标识共享内存。
 
-首先使用 python 脚本生成 1,000,000 个随机整数，保存为二进制文件 `dada/integers.bin` 。
+首先使用 python 脚本生成 1,000,000 个随机整数，保存为文本文件 `data/integers.txt` 。
 
-主进程首先从二进制文件中读取数据，创建一片 `SharedData` 类型的共享内存数据，将数据加载到共享内存中。设置共享内存名称，这是后续子进程创建新的 `SharedMemory` 对象的重要依据。创建第一个共享内存 `SharedMemory` 对象。在构造函数中，主进程负责完成以下操作：
+主进程首先从文本文件中读取数据，创建一片 `SharedData` 类型的共享内存数据，将数据加载到共享内存中。设置共享内存名称，这是后续子进程创建新的 `SharedMemory` 对象的重要依据。创建第一个共享内存 `SharedMemory` 对象。在构造函数中，主进程负责完成以下操作：
 
 1. 通过系统调用 `shm_open` 创建一片共享内存区域。
 2. 通过系统调用 `ftruncate` 设置共享内存的大小。
@@ -56,6 +56,31 @@
 共享内存类(SharedMemory)只负责把一块内存映射进来、提供读写、以及对这块内存本身的元信息，比如数据长度、排序标志、加锁和解锁。进程管理／排序控制类才专门负责“有多少进程在干活、何时 fork、何时回收”。
 
 ## 文件结构说明
+
+```text
+├── build_and_run.sh
+├── CMakeLists.txt
+├── data
+│   ├── integers.txt
+│   └── sorted_integers.txt
+├── include
+│   ├── shared_memory.hpp
+│   └── sorter.hpp
+├── README.md
+├── report
+│   └── report.md
+├── run.sh
+├── scripts
+│   └── generate_data.py
+└── src
+    ├── main.cpp
+    ├── shared_memory.cpp
+    └── sorter.cpp
+```
+
+## 样例测试
+
+使用 Python 文件生成随机数保存至文本文件后，程序读取文件数据并排序，最后将排序结果写入 `data/sorted_integers.txt` 文件中。可见排序算法正确执行，排序后的数据有序。
 
 ## 思考题
 
