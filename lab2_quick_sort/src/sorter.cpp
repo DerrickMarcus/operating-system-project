@@ -34,17 +34,15 @@ void Sorter::sort_all()
 
 bool Sorter::verify_sorted() const
 {
-    bool is_sorted = true;
     auto *data_ptr = this->_shm.get_data_ptr();
     for (size_t i = 0; i < this->_shm.get_data_size() - 1; i++)
     {
         if (data_ptr[i] > data_ptr[i + 1])
         {
-            is_sorted = false;
-            break;
+            return false;
         }
     }
-    return is_sorted;
+    return true;
 }
 
 void Sorter::std_sort(int left, int right)
