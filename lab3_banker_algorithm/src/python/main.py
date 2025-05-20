@@ -15,7 +15,7 @@ def main():
     BASE_DIR = Path(__file__).resolve().parent
     DATA_DIR = BASE_DIR.parent.parent / "data"
     JSON_FILE = DATA_DIR / "example_1.json"
-    LOG_FILE = DATA_DIR / "output.log"
+    LOG_FILE = DATA_DIR / "example_1_out.txt"
 
     # Configure the logging format.
     logging.basicConfig(

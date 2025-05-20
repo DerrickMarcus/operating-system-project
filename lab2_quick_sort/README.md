@@ -5,7 +5,7 @@
 The project provides a Python script to generate the input data:
 
 - **Script**: `scripts/generate_data.py`
-- **Default behavior**: generates 1,000,000 random integers in the range `[0, 10,000,000]` and saves them to `data/integers.txt`.
+- **Default behavior**: generates 1,000,000 random integers in the range `[0, 10000000]` and saves them to `data/integers.txt`.
 
 ```bash
 cd scripts

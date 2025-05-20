@@ -13,6 +13,15 @@ class Banker:
         self.need = self.max_demand - self.allocation
         self.available = self.total - np.sum(self.allocation, axis=0)
 
+        self.validate_max_demand()
+
+    def validate_max_demand(self):
+        for i in range(self.num_processes):
+            if np.any(self.max_demand[i] > self.total):
+                raise ValueError(
+                    f"Process {i} needs {self.max_demand[i]}, more than total resources {self.total}."
+                )
+
     def print_state(self):
         logging.info("Current state of the system resources:")
         logging.info(f"Total: {self.total}")
@@ -63,14 +72,23 @@ class Banker:
         finish = np.zeros(self.num_processes, dtype=bool)
         safe_sequence = []
 
+        logging.info("Beginning system safety check...")
+        logging.info(f"Initial Work (Available Resources): {work.tolist()}")
+
         while True:
             found = False
             for i in range(self.num_processes):
                 if not finish[i] and np.all(self.need[i] <= work):
+                    logging.info(
+                        f"Process {i} can proceed. Need: {self.need[i].tolist()}, Work: {work.tolist()}"
+                    )
                     work += self.allocation[i]
                     finish[i] = True
                     safe_sequence.append(i)
                     found = True
+                    logging.info(
+                        f"Process {i} has finished. Updated Work: {work.tolist()}"
+                    )
                     break
             if not found:
                 break

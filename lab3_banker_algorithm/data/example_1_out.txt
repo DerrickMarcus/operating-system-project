@@ -1,0 +1,156 @@
+Read data from file /home/derrick/study/operating-system-project/lab3_banker_algorithm/data/example_1.json.
+Current state of the system resources:
+Total: [10  8  7  9]
+Allocated:
+[[1 0 1 2]
+ [2 1 0 1]
+ [1 2 2 1]
+ [0 1 1 2]]
+Maximum demand:
+[[5 4 3 5]
+ [3 2 2 3]
+ [7 5 4 6]
+ [4 3 3 4]]
+Need:
+[[4 4 2 3]
+ [1 1 2 2]
+ [6 3 2 5]
+ [4 2 2 2]]
+Available: [6 4 3 3]
+------------------------------------------------------------
+Process 1 is requesting resources: [1 0 1 1]
+Beginning system safety check...
+Initial Work (Available Resources): [5, 4, 2, 2]
+Process 1 can proceed. Need: [0, 1, 1, 1], Work: [5, 4, 2, 2]
+Process 1 has finished. Updated Work: [8, 5, 3, 4]
+Process 0 can proceed. Need: [4, 4, 2, 3], Work: [8, 5, 3, 4]
+Process 0 has finished. Updated Work: [9, 5, 4, 6]
+Process 2 can proceed. Need: [6, 3, 2, 5], Work: [9, 5, 4, 6]
+Process 2 has finished. Updated Work: [10, 7, 6, 7]
+Process 3 can proceed. Need: [4, 2, 2, 2], Work: [10, 7, 6, 7]
+Process 3 has finished. Updated Work: [10, 8, 7, 9]
+The system will be in a safe state. Safe sequence: [1, 0, 2, 3]
+Request accepted. Allocation successful.
+Current state of the system resources:
+Total: [10  8  7  9]
+Allocated:
+[[1 0 1 2]
+ [3 1 1 2]
+ [1 2 2 1]
+ [0 1 1 2]]
+Maximum demand:
+[[5 4 3 5]
+ [3 2 2 3]
+ [7 5 4 6]
+ [4 3 3 4]]
+Need:
+[[4 4 2 3]
+ [0 1 1 1]
+ [6 3 2 5]
+ [4 2 2 2]]
+Available: [5 4 2 2]
+------------------------------------------------------------
+Process 0 is requesting resources: [5 0 0 0]
+Process 0 is requesting more than its maximum demand:
+Request: [5 0 0 0]
+Need:    [4 4 2 3]
+Invalid request. Allocation rejected.
+Current state of the system resources:
+Total: [10  8  7  9]
+Allocated:
+[[1 0 1 2]
+ [3 1 1 2]
+ [1 2 2 1]
+ [0 1 1 2]]
+Maximum demand:
+[[5 4 3 5]
+ [3 2 2 3]
+ [7 5 4 6]
+ [4 3 3 4]]
+Need:
+[[4 4 2 3]
+ [0 1 1 1]
+ [6 3 2 5]
+ [4 2 2 2]]
+Available: [5 4 2 2]
+------------------------------------------------------------
+Process 2 is requesting resources: [1 1 1 3]
+Process 2 is requesting more than available resources:
+Request:   [1 1 1 3]
+Available: [5 4 2 2]
+Invalid request. Allocation rejected.
+Current state of the system resources:
+Total: [10  8  7  9]
+Allocated:
+[[1 0 1 2]
+ [3 1 1 2]
+ [1 2 2 1]
+ [0 1 1 2]]
+Maximum demand:
+[[5 4 3 5]
+ [3 2 2 3]
+ [7 5 4 6]
+ [4 3 3 4]]
+Need:
+[[4 4 2 3]
+ [0 1 1 1]
+ [6 3 2 5]
+ [4 2 2 2]]
+Available: [5 4 2 2]
+------------------------------------------------------------
+Process 3 is requesting resources: [1 0 1 0]
+Beginning system safety check...
+Initial Work (Available Resources): [4, 4, 1, 2]
+Process 1 can proceed. Need: [0, 1, 1, 1], Work: [4, 4, 1, 2]
+Process 1 has finished. Updated Work: [7, 5, 2, 4]
+Process 0 can proceed. Need: [4, 4, 2, 3], Work: [7, 5, 2, 4]
+Process 0 has finished. Updated Work: [8, 5, 3, 6]
+Process 2 can proceed. Need: [6, 3, 2, 5], Work: [8, 5, 3, 6]
+Process 2 has finished. Updated Work: [9, 7, 5, 7]
+Process 3 can proceed. Need: [3, 2, 1, 2], Work: [9, 7, 5, 7]
+Process 3 has finished. Updated Work: [10, 8, 7, 9]
+The system will be in a safe state. Safe sequence: [1, 0, 2, 3]
+Request accepted. Allocation successful.
+Current state of the system resources:
+Total: [10  8  7  9]
+Allocated:
+[[1 0 1 2]
+ [3 1 1 2]
+ [1 2 2 1]
+ [1 1 2 2]]
+Maximum demand:
+[[5 4 3 5]
+ [3 2 2 3]
+ [7 5 4 6]
+ [4 3 3 4]]
+Need:
+[[4 4 2 3]
+ [0 1 1 1]
+ [6 3 2 5]
+ [3 2 1 2]]
+Available: [4 4 1 2]
+------------------------------------------------------------
+Process 0 is requesting resources: [1 0 1 0]
+Beginning system safety check...
+Initial Work (Available Resources): [3, 4, 0, 2]
+The system will be in an unsafe state.
+Request denied. Back to the previous state.
+Current state of the system resources:
+Total: [10  8  7  9]
+Allocated:
+[[1 0 1 2]
+ [3 1 1 2]
+ [1 2 2 1]
+ [1 1 2 2]]
+Maximum demand:
+[[5 4 3 5]
+ [3 2 2 3]
+ [7 5 4 6]
+ [4 3 3 4]]
+Need:
+[[4 4 2 3]
+ [0 1 1 1]
+ [6 3 2 5]
+ [3 2 1 2]]
+Available: [4 4 1 2]
+------------------------------------------------------------
