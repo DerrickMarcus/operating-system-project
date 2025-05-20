@@ -124,6 +124,7 @@ private:
 最后 `soer_all()` 函数，对整个数组调用 `quick_sort()` 启动整体排序，并等待各级子进程结束后，才算排序完成。
 
 ```cpp
+class Sorter
 {
 public:
     Sorter(const std::string &shm_name, size_t data_size, bool create,
@@ -152,7 +153,7 @@ private:
 };
 ```
 
-首先使用 python 脚本生成 1,000,000 个随机整数，保存为文本文件 `data/integers.txt` 。
+完整流程：首先使用 python 脚本生成 1,000,000 个随机整数，保存为文本文件 `data/integers.txt` 。
 
 在主文件 `main.py` 中，主进程从文本文件中读取数据，将数据加载到缓冲区中，获取其数组大小。根据共享内存名称 `/lab2_quick_sort` 和数组大小，创建共享内存 `SharedMemory` 对象（此时主进程为唯一的创建者，需要完成初始化的工作）。将数组从缓冲区加载到共享内存的数组中。再根据共享内存名称、数组大小等信息，创建排序器 `Sorter` 对象（此时已经不是共享内存创建者），直接调用 `sort_all()` 函数开始排序。排序完成后，调用 `verify_sorted()` 函数验证排序结果是否正确，最后将排序结果写入输出文件 `data/sorted_integers.txt` 中。
 
